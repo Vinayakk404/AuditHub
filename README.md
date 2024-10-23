@@ -16,6 +16,9 @@
   - [Inventory Manager](#inventory-manager)
   - [Sales Manager](#sales-manager)
 
+## Home Page Demo
+https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
+
 ## Problem Statement 🚨
 - Scattered, inconsistent audit data across multiple systems hinders compliance, anomaly detection, and reporting
 - Manual processes and disjointed tools create inefficiencies and raise the risk of errors
@@ -27,8 +30,6 @@
 - Automate reporting, anomaly detection, and compliance checks
 - Provide actionable insights via real-time visual dashboards
 
-## Home Page Demo
-https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
 
 ## Tech Stack 🛠️
 
