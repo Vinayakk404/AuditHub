@@ -1,5 +1,8 @@
 # AuditHub 🔍
 
+## Home Page Demo
+https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
+
 ## Table of Contents 📑
 - [Problem Statement](#problem-statement-)
 - [Our Solution](#our-solution-)
@@ -16,8 +19,6 @@
   - [Inventory Manager](#inventory-manager)
   - [Sales Manager](#sales-manager)
 
-## Home Page Demo
-https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
 
 ## Problem Statement 🚨
 - Scattered, inconsistent audit data across multiple systems hinders compliance, anomaly detection, and reporting
