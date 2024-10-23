@@ -82,3 +82,7 @@ https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
 - View inventory
 - Sell Vehicles
 - View sales analytics
+
+
+## Architecture
+
