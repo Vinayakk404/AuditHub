@@ -3,7 +3,7 @@
 ## Table of Contents 📑
 - [Problem Statement](#problem-statement-)
 - [Our Solution](#our-solution-)
-- [Tech Stack](#tech-stack-)
+- [Tech Stack](#tech-stack)
   - [Frontend](#frontend)
   - [Backend](#backend)
   - [Database](#database)
@@ -26,6 +26,9 @@
 - Ensure data consistency and integrity
 - Automate reporting, anomaly detection, and compliance checks
 - Provide actionable insights via real-time visual dashboards
+
+## Home Page Demo
+https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
 
 ## Tech Stack 🛠️
 
