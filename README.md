@@ -86,3 +86,6 @@ https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
 
 ## Architecture
 
+## Data Modelling
+![image](https://github.com/user-attachments/assets/2306a365-4404-41ff-86b7-d35d127e4446)
+
