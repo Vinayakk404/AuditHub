@@ -1,7 +1,8 @@
 # 🔍 TrackLine 
 
 ## Home Page Demo
-https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
+https://github.com/user-attachments/assets/15e11499-eea8-41f8-b7f0-ad99a7f77905
+
 
 ## 📑 Table of Contents 
 - [Problem Statement](#problem-statement-)
@@ -21,7 +22,10 @@ https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
 
 
 ## 🚨 Problem Statement 
-- Scattered, inconsistent audit data across multiple systems hinders compliance, anomaly detection, and reporting
+- Scattered, inconsistent audit data across 
+
+
+multiple systems hinders compliance, anomaly detection, and reporting
 - Manual processes and disjointed tools create inefficiencies and raise the risk of errors
 - A centralized audit system is needed to consolidate data, ensure consistency, and provide automated, actionable insights
 
