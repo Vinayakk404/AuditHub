@@ -83,6 +83,9 @@ https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
 - Sell Vehicles
 - View sales analytics
 
+## Architecture
+![image](https://github.com/user-attachments/assets/fe6e1614-3b7d-4501-a376-a8d34ffa5415)
+
 ## Data Modelling
 ![image](https://github.com/user-attachments/assets/2306a365-4404-41ff-86b7-d35d127e4446)
 
