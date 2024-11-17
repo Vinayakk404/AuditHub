@@ -1,4 +1,4 @@
-# TrackLine 🔍
+# 🔍 TrackLine 
 
 ## Home Page Demo
 https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
@@ -20,19 +20,19 @@ https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
   - [Sales Manager](#sales-manager)
 
 
-## Problem Statement 🚨
+## 🚨 Problem Statement 
 - Scattered, inconsistent audit data across multiple systems hinders compliance, anomaly detection, and reporting
 - Manual processes and disjointed tools create inefficiencies and raise the risk of errors
 - A centralized audit system is needed to consolidate data, ensure consistency, and provide automated, actionable insights
 
-## Our Solution 💡
+## 💡 Our Solution 
 - Streamline the collection, validation, and processing of audit data
 - Ensure data consistency and integrity
 - Automate reporting, anomaly detection, and compliance checks
 - Provide actionable insights via real-time visual dashboards
 
 
-## Tech Stack 🛠️
+## 🛠️ Tech Stack 
 
 ### Frontend
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
@@ -59,7 +59,7 @@ https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
 ![Apache Kafka](https://img.shields.io/badge/Apache_Kafka-231F20?style=for-the-badge&logo=apache-kafka&logoColor=white)
 ![Debezium](https://img.shields.io/badge/Debezium-FF7F50?style=for-the-badge&logo=debezium&logoColor=white)
 
-## Stakeholders and Features 👥
+## 👥 Stakeholders and Features 
 
 ### Production Planner
 - View Inventory
@@ -82,9 +82,6 @@ https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
 - View inventory
 - Sell Vehicles
 - View sales analytics
-
-
-## Architecture
 
 ## Data Modelling
 ![image](https://github.com/user-attachments/assets/2306a365-4404-41ff-86b7-d35d127e4446)
