@@ -89,3 +89,37 @@ https://github.com/user-attachments/assets/877de196-678e-4a7c-98f0-632445abbcf1
 ## Data Modelling
 ![image](https://github.com/user-attachments/assets/2306a365-4404-41ff-86b7-d35d127e4446)
 
+
+## 🚀Screenshots
+### Login Page
+<img width="1077" alt="Login Page" src="https://github.com/user-attachments/assets/37eccc31-0b12-4d4d-865a-740cd92e4158">
+
+### Production Manager
+<img width="1079" alt="Production Planner Page" src="https://github.com/user-attachments/assets/c0768b4f-3892-4bcc-946b-2072ec166ef2">
+
+### Inventory
+<img width="1056" alt="Inventory Page" src="https://github.com/user-attachments/assets/1b205e2a-adb5-4f3d-ad46-515d23ccff91">
+
+### Production Dashboard
+<img width="1067" alt="Production DashBoard" src="https://github.com/user-attachments/assets/623a7f6e-b31c-40b2-9a3b-2df88528a022">
+
+### Production Planner
+<img width="1063" alt="Plant Manager Page" src="https://github.com/user-attachments/assets/2d5fc3fb-d270-43f7-97a6-e5049cf9f1e2">
+
+### Quality Controller
+<img width="1076" alt="QualityController" src="https://github.com/user-attachments/assets/862f7032-bf30-4d0f-97a0-cb5fc46b3675">
+
+### Quality Dashboard
+<img width="1058" alt="QaltiyDashboard" src="https://github.com/user-attachments/assets/6f00818b-5417-4863-80d3-a8ec8eb2c897">
+
+### Inventory Manager
+<img width="1074" alt="inventory-2" src="https://github.com/user-attachments/assets/63f3bac7-16e8-47c8-af27-7103c44714d4">
+
+### Inventory Dashboard
+<img width="1046" alt="Inventor Dahsboard" src="https://github.com/user-attachments/assets/a70b8080-f1d2-4515-8f01-67c6c7d430f8">
+
+### Sales Manager
+<img width="1064" alt="Sales Dashboard" src="https://github.com/user-attachments/assets/3cf986c0-dcb6-4224-bc3f-373c627d0088">
+
+### Ssales Dashboard
+<img width="917" alt="Sales Dash-2" src="https://github.com/user-attachments/assets/595b2aa7-45a6-46c6-98c8-426bfa0623e4">
