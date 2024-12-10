@@ -1,0 +1,61 @@
+spring:
+ cloud:
+   gateway:
+     globalcors:
+       cors-configurations:
+         '[/**]':
+            allowedOrigins:
+             - "*"
+            allowedMethods:
+             - "*"
+            allowedHeaders:
+             - "*" 
+            exposedHeaders:
+             - "*"
+     default-filters:
+       - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+
+     routes:
+       - id: authenticationservice
+         uri: lb://authenticationservice
+         predicates:
+           - Path=/auth/**
+   
+       - id: productionService
+         uri: lb://productionService
+         predicates:
+           - Path=/api/productionData/**
+         filters:
+           - AuthenticationFilter
+
+       - id: qualityService
+         uri: lb://qualityService/**
+         predicates:
+           - Path=/api/qc/**
+         filters:
+           - AuthenticationFilter
+
+       - id: inventoryService
+         uri: lb://inventoryService
+         predicates:
+           - Path=/api/inventory/**
+         filters:
+           - AuthenticationFilter
+
+       - id: salesService
+         uri: lb://salesservice
+         predicates:
+           - Path=/api/sales/**
+         filters:
+           - AuthenticationFilter
+ application:
+   name: ApiGateway
+       
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://eureka-registry-service:8761/eureka/
+
+server:
+  port: 8080

@@ -1,0 +1,165 @@
+version: '3.8'  
+services:
+  # API Gateway Service
+  api-gateway:
+    image: apigateway:latest
+    build: ./api_gateway
+    container_name: apigateway
+    ports:
+      - "8080:8080"   
+    depends_on:
+      - production-service
+      - quality-service
+      - sales-service
+      - inventory-service
+      - eureka-registry-service
+    networks:
+      - microservice-network
+
+  authentication-service:
+    image: authentication_service:latest
+    build: ./authentication_service
+    container_name: auth-service
+    ports:
+      - "9898:9898"   
+    depends_on:
+      - eureka-registry-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-service:8761/eureka
+    networks:
+      - microservice-network
+
+  eureka-registry-service:
+    image: eureka_service:latest
+    build: ./eureka_registry 
+    container_name: eureka-service
+    ports:
+      - "8761:8761"   
+    networks:
+      - microservice-network
+
+  # Production Service
+  production-service:
+    image: production_service:latest
+    build: ./production_service
+    container_name: production-service
+    networks:
+      - microservice-network
+    depends_on:
+      - eureka-registry-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-service:8761/eureka
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]  # Adjust health check URL as needed
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Quality Service
+  quality-service:
+    image: quality_service:latest
+    build: ./quality_service
+    container_name: quality-service
+    networks:
+      - microservice-network
+    depends_on:
+      - eureka-registry-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-service:8761/eureka
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/health"]  # Adjust health check URL as needed
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  inventory-service:
+    image: inventory_service:latest
+    build: ./inventory_service
+    container_name: inventory-service
+    networks:
+      - microservice-network
+    depends_on:
+      - eureka-registry-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-service:8761/eureka
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/health"]  # Adjust health check URL as needed
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  sales-service:
+    image: sales_service:latest
+    build: ./sales_service
+    container_name: sales-service
+    networks:
+      - microservice-network
+    depends_on:
+      - eureka-registry-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-service:8761/eureka
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8084/health"]  # Adjust health check URL as needed
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  metabase-service:
+    image: metabase/metabase:latest
+    container_name: metabase-service
+    networks:
+      - microservice-network
+    ports:
+      - "3000:3000"
+
+services:
+  zookeeper:
+    container_name: zookeeper-cntr2
+    image: confluentinc/cp-zookeeper:7.2.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - microservice-network
+
+  kafka:
+    container_name: kafka-cntr2
+    image: confluentinc/cp-kafka:7.2.0
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-cntr2:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-cntr2:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - microservice-network
+
+  connect:
+    image: debezium/connect:2.3
+    ports:
+      - "8083:8083"
+    environment:
+      BOOTSTRAP_SERVERS: kafka-cntr2:9092
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: my_connect_configs
+      OFFSET_STORAGE_TOPIC: my_connect_offsets
+      STATUS_STORAGE_TOPIC: my_connect_statuses
+      KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_REST_ADVERTISED_HOST_NAME: connect
+      CONNECT_PLUGIN_PATH: /kafka/connect
+    networks:
+      - microservice-network
+
+networks:
+  microservice-network:
+    driver: bridge
+

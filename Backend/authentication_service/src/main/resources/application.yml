@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: authenticationservice
+  data:
+    mongodb:
+      database: AuditHub
+      host: localhost
+      port: 27017
+      uri: mongodb+srv://Vinayak123:Vinayak@cluster0.pcymu6r.mongodb.net/
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://eureka-service:8761/eureka/
+
+server:
+  port: 9898
+

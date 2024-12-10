@@ -1,0 +1,19 @@
+{
+    "name": "mongo-connector",
+    "config": {
+      "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+      "tasks.max": "1",
+      "mongodb.connection.string": "mongodb+srv://Vinayak123:Vinayak@cluster0.pcymu6r.mongodb.net/",
+      "mongodb.name": "cluster0",
+      "mongodb.user": "Vinayak123",
+      "mongodb.password": "Vinayak",
+      "database.include.list": "AuditHub",
+      "collection.include.list": "AuditHub.production_data,AuditHub.qc_data,AuditHub.inventory_data,Audithub.sales_data",
+      "topic.prefix":"mongo",
+      "transforms": "route",
+      "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+      "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+      "transforms.route.replacement": "$3"
+    }
+  }
+  
