@@ -16,29 +16,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Sales {
-    @Id
-    private String id; 
-    
-    ArrayList<Integer> batchId = new ArrayList<Integer>();
-    private String salesID;
-    private String vehicleId;
-    private LocalDate saleDate;
-    private int quantitySold;
-    private double salePrice;
-    private double totalSaleValue;
-    private String customerID;
-    private String paymentStatus;
-    private String anomalyFlag;
-    private String anomalyCategory;
-    private String vehicleModel;
-    private String region;
-    private String dealership;
-    private String batchIds;
-	
-    @Transient
-    private Inventory inventory;
+	@Id
+	private String id;
 
-	
+	ArrayList<Integer> batchId = new ArrayList<Integer>();
+	private String salesID;
+	private String vehicleId;
+	private LocalDate saleDate;
+	private int quantitySold;
+	private double salePrice;
+	private double totalSaleValue;
+	private String customerID;
+	private String paymentStatus;
+	private String anomalyFlag;
+	private String anomalyCategory;
+	private String vehicleModel;
+	private String region;
+	private String dealership;
+	private String batchIds;
+
+	@Transient
+	private Inventory inventory;
 
 }
-

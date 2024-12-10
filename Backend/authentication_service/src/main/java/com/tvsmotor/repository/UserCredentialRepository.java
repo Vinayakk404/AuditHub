@@ -6,6 +6,6 @@ import com.tvsmotor.entity.UserCredential;
 
 import java.util.Optional;
 
-public interface UserCredentialRepository  extends MongoRepository<UserCredential,String> {
-    Optional<UserCredential> findByName(String username);
+public interface UserCredentialRepository extends MongoRepository<UserCredential, String> {
+	Optional<UserCredential> findByName(String username);
 }

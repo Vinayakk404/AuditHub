@@ -124,11 +124,6 @@ public class SalesService {
 
 					logger.info("Decremented {} units from batchId={}", quantityToSellFromBatch, batch.getBatchId());
 
-					// Step 4: Record the transaction
-//                   
-//                    transaction.setVehicleModel(vehicleId);
-//                    transaction.setBatchID(batch.getBatchId());
-//                    transaction.setQuantitySold(remainingQuantity);
 					batchIds += " " + batch.getBatchId();
 //                    
 //                    salesRepository.save(transaction);

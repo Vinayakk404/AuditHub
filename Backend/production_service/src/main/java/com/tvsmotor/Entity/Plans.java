@@ -17,19 +17,19 @@ import java.util.List;
 @NoArgsConstructor
 @Document(collection = "plans")
 public class Plans {
-	 @Id
-	    private String id; // MongoDB's unique identifier
+	@Id
+	private String id; // MongoDB's unique identifier
 
-	    private String planId; // UUID or any unique plan identifier
+	private String planId; // UUID or any unique plan identifier
 
-	    private String startDate; // Format: YYYY-MM-DD
+	private String startDate; // Format: YYYY-MM-DD
 
-	    private String endDate;   // Format: YYYY-MM-DD
+	private String endDate; // Format: YYYY-MM-DD
 
-	    private List<String> vehicles; // List of vehicle model names
+	private List<String> vehicles; // List of vehicle model names
 
-	    private Integer totalUnits;
+	private Integer totalUnits;
 
-	    private Double budget;
+	private Double budget;
 
 }

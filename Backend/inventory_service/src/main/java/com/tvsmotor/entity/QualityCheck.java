@@ -1,6 +1,5 @@
 package com.tvsmotor.entity;
 
-
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
@@ -12,51 +11,48 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Document(collection = "qc_data")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class QualityCheck {
-	    @Id
-	    private int batchId;
-	    
-	    private String planId;
-	    @NotBlank(message = "Vehicle Model cannot be blank")
-	    @Field("VehicleModel")
-	    private String vehicleModel;
+	@Id
+	private int batchId;
 
-	    @NotBlank(message = "Qc passed units cannot be blank")
-	    private int qcPassedUnits;
+	private String planId;
+	@NotBlank(message = "Vehicle Model cannot be blank")
+	@Field("VehicleModel")
+	private String vehicleModel;
 
-	    @NotBlank(message = "Qc failed units cannot be blank")
-	    private int qcFailedUnits;
+	@NotBlank(message = "Qc passed units cannot be blank")
+	private int qcPassedUnits;
 
-	    @NotBlank(message = "Qc failiure rate  cannot be blank")
-	   
-	    private double qcFailureRate;
+	@NotBlank(message = "Qc failed units cannot be blank")
+	private int qcFailedUnits;
 
-	   
-	    @Field("anomalyFlag")
-	    private boolean anomalyFlag;
-	    
-	    @Field("anomaly")
-	    private String anomaly;
-	   
-	    @Field("comments")
-	    private String comments;
-	    
-	    @Field("shift")
-	    private String shift;
-	  
+	@NotBlank(message = "Qc failiure rate  cannot be blank")
 
-		public boolean getAnomalyFlag() {
-			// TODO Auto-generated method stub
-			return false;
-			
-		}
-		
-		 private LocalDateTime qualityStartTime;
-		 private LocalDateTime  qualityEndTime;
+	private double qcFailureRate;
+
+	@Field("anomalyFlag")
+	private boolean anomalyFlag;
+
+	@Field("anomaly")
+	private String anomaly;
+
+	@Field("comments")
+	private String comments;
+
+	@Field("shift")
+	private String shift;
+
+	public boolean getAnomalyFlag() {
+		// TODO Auto-generated method stub
+		return false;
+
+	}
+
+	private LocalDateTime qualityStartTime;
+	private LocalDateTime qualityEndTime;
 
 }

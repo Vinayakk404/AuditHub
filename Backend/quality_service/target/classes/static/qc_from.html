@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production to QC Data</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Container for the form -->
+    <div class="max-w-2xl mx-auto mt-10 bg-white p-8 shadow-md rounded-lg">
+        <h1 class="text-2xl font-bold mb-6 text-center text-gray-700">Add Data to QC Table</h1>
+        
+        <form id="qcForm" class="space-y-6">
+            <!-- Batch ID -->
+            <div>
+                <label for="batchId" class="block text-sm font-medium text-gray-700">Batch ID</label>
+                <input type="text" id="batchId" name="batchId" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
+            </div>
+
+            <!-- Vehicle Model -->
+            <div>
+                <label for="vehicleModel" class="block text-sm font-medium text-gray-700">Vehicle Model</label>
+                <input type="text" id="vehicleModel" name="vehicleModel" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
+            </div>
+
+            <!-- Produced Units -->
+            <div>
+                <label for="producedUnits" class="block text-sm font-medium text-gray-700">Produced Units</label>
+                <input type="number" id="producedUnits" name="producedUnits" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
+            </div>
+
+            <!-- QC Passed Units -->
+            <div>
+                <label for="qcPassedUnits" class="block text-sm font-medium text-gray-700">QC Passed Units</label>
+                <input type="number" id="qcPassedUnits" name="qcPassedUnits" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
+            </div>
+
+            <!-- QC Failed Units -->
+            <div>
+                <label for="qcFailedUnits" class="block text-sm font-medium text-gray-700">QC Failed Units</label>
+                <input type="number" id="qcFailedUnits" name="qcFailedUnits" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
+            </div>
+
+            <!-- Failure Reasons -->
+            <div>
+                <label for="failureReasons" class="block text-sm font-medium text-gray-700">Failure Reasons</label>
+                <textarea id="failureReasons" name="failureReasons" rows="3" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none">Add to QC Data</button>
+            </div>
+        </form>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="hidden mt-4 p-4 bg-green-100 text-green-700 rounded-md">
+            Data has been successfully added to the QC table!
+        </div>
+    </div>
+
+    <!-- Tailwind JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+        const form = document.getElementById('qcForm');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Collect form data
+            const formData = {
+                batchId: document.getElementById('batchId').value,
+                vehicleModel: document.getElementById('vehicleModel').value,
+                producedUnits: document.getElementById('producedUnits').value,
+                qcPassedUnits: document.getElementById('qcPassedUnits').value,
+                qcFailedUnits: document.getElementById('qcFailedUnits').value,
+                failureReasons: document.getElementById('failureReasons').value,
+            };
+
+            // POST request to your backend API
+            fetch('/api/qc', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    successMessage.classList.remove('hidden');
+                    form.reset(); // Clear the form
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+
+</body>
+</html>

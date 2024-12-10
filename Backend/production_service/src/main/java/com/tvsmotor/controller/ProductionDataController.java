@@ -2,7 +2,6 @@ package com.tvsmotor.controller;
 
 import org.bson.types.ObjectId;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -31,80 +30,33 @@ public class ProductionDataController {
 	@Autowired
 	private PlanDataService planService;
 
-
-	// Create Production Data
-//	@PostMapping
-//	public Production createProductionData(@Validated @RequestBody Production productionData) {
-//		// Check if batchId is missing
-//
-//		Integer lastBatchId = productionDataService.getLastBatchId();
-//		int nextBatchId = (lastBatchId != null) ? lastBatchId + 1 : 1050;
-//		productionData.setBatchId(nextBatchId);
-//		return productionDataService.saveProductionData(productionData);
-//	}
-
 	// Get All Production Data
 	@GetMapping
 	public List<Production> getAllProductionData() {
 		return productionDataService.getAllProductionData();
 	}
-//
-//	@GetMapping("/plans")
-//	public List<Plans> getAllPlanData() {
-//		return productionDataService.getAllPlanData();
-//	}
-
 
 	@PostMapping("/plans")
 	public ResponseEntity<Plans> createPlan(@RequestBody Plans plan) {
 		String lastPlanId = productionDataService.getLastPlanId();
 
-		String nextPlanId = "" + ((lastPlanId !="") ? Integer.parseInt(lastPlanId) + 1 : 1);
+		String nextPlanId = "" + ((lastPlanId != "") ? Integer.parseInt(lastPlanId) + 1 : 1);
 		plan.setPlanId(nextPlanId);
 		Plans savedPlan = planService.savePlan(plan);
 		return ResponseEntity.ok(savedPlan);
 	}
-	
-//	   @PostMapping("/plans")
-//	    public ResponseEntity<Plans> createPlan(
-//	            @RequestBody PlanWithProductionDataRequest request
-//	    ) {
-//	        Plans plan = request.getPlan();
-//	        List<Production> productionDataList = request.getProductionDataList();
-//
-//	        Plans savedPlan = planService.savePlan(plan, productionDataList);
-//	        return ResponseEntity.ok(savedPlan);
-//	    }
-	
-//	  @GetMapping("/plans")
-//	    public ResponseEntity<List<Plans>> getAllPlans() {
-//	        List<Plans> plans = planService.getAllPlans();
-//	        return ResponseEntity.ok(plans);
-//	    }
-	
-	  @GetMapping("/{planId}")
-	    public ResponseEntity<Plans> getPlanByPlanId(@PathVariable String planId) {
-	        Optional<Plans> optionalPlan = planService.getPlanByPlanId(planId);
-	        return optionalPlan.map(ResponseEntity::ok)
-	                           .orElseGet(() -> ResponseEntity.notFound().build());
-	    }
-	  
-	  @GetMapping("/plans")
-	    public ResponseEntity<List<Plans>> getAllPlans() {
-	        List<Plans> plans = planService.getAllPlans();
-	        return ResponseEntity.ok(plans);
-	    }
-//	// Get Production Data by Batch ID
-//	@GetMapping("/batch/{batchId}")
-//	public Production getProductionDataByBatchId(@PathVariable int batchId) {
-//		Production productions = productionDataService.getProductionDataByBatchId(batchId);
-//
-//		if (productions == null) {
-//			throw new ResourceNotFoundException("No production data found for batch ID: " + batchId);
-//		}
-//
-//		return productions;
-//	}
+
+	@GetMapping("/{planId}")
+	public ResponseEntity<Plans> getPlanByPlanId(@PathVariable String planId) {
+		Optional<Plans> optionalPlan = planService.getPlanByPlanId(planId);
+		return optionalPlan.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+	}
+
+	@GetMapping("/plans")
+	public ResponseEntity<List<Plans>> getAllPlans() {
+		List<Plans> plans = planService.getAllPlans();
+		return ResponseEntity.ok(plans);
+	}
 
 	@GetMapping("/operator/{operatorId}")
 	public List<Production> getProductionDataByOperatorId(@PathVariable String operatorId) {
@@ -116,7 +68,7 @@ public class ProductionDataController {
 
 		return productions;
 	}
-	
+
 	@GetMapping("/plant/{plantId}")
 	public List<Production> getProductionDataByPlantId(@PathVariable String plantId) {
 		List<Production> productions = productionDataService.getProductionDataPlantId(plantId);
@@ -136,7 +88,7 @@ public class ProductionDataController {
 		int nextBatchId = (lastBatchId != null) ? lastBatchId + 1 : 1050;
 		String lastPlanId = productionDataService.getLastPlanId();
 
-		String nextPlanId = "" + ((lastPlanId!="") ? Integer.parseInt(lastPlanId) + 1 : 1);
+		String nextPlanId = "" + ((lastPlanId != "") ? Integer.parseInt(lastPlanId) + 1 : 1);
 
 		for (Production production : productions) {
 
@@ -159,21 +111,20 @@ public class ProductionDataController {
 		return productionDataService.deleteProductionData(batchId);
 	}
 
-		@PutMapping("/updateProductionData")
-		public ResponseEntity<String> updateProductionData(@RequestBody List<Production> productionData) {
-			// Ensure the batchId in the path matches the batchId in the body (if provided)
-			   for (Production production : productionData) {
-			        int batchId = production.getBatchId();
-			        // Validate batchId is positive
-			        if (batchId <= 0) {
-			            throw new InvalidDataException("Invalid Batch ID: " + batchId);
-			        }
-			        productionDataService.updateProductionData(batchId, production);
-			    }
-			    return ResponseEntity.ok("Production data updated successfully.");
-			
-		
+	@PutMapping("/updateProductionData")
+	public ResponseEntity<String> updateProductionData(@RequestBody List<Production> productionData) {
+		// Ensure the batchId in the path matches the batchId in the body (if provided)
+		for (Production production : productionData) {
+			int batchId = production.getBatchId();
+			// Validate batchId is positive
+			if (batchId <= 0) {
+				throw new InvalidDataException("Invalid Batch ID: " + batchId);
+			}
+			productionDataService.updateProductionData(batchId, production);
 		}
+		return ResponseEntity.ok("Production data updated successfully.");
+
+	}
 
 	@PutMapping("/{batchId}")
 	public ResponseEntity<Production> updateBatch(@PathVariable int batchId, @RequestBody Production updateRequest) {

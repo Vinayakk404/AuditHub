@@ -1,6 +1,5 @@
 package com.tvsmotor.entity;
 
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -15,65 +14,60 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
 @Document(collection = "qc_data")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class QualityCheck {
-	    @Id
-	    private int batchId;
-	    
-	    private String vehicleId;
-	    
-	    private String planId;
+	@Id
+	private int batchId;
 
-	    @Field("VehicleModel")
-	    private String vehicleModel;
+	private String vehicleId;
 
-	    @NotBlank(message = "Qc passed units cannot be blank")
-	    private int qcPassedUnits;
+	private String planId;
 
-	    @NotBlank(message = "Qc failed units cannot be blank")
-	    private int qcFailedUnits;
+	@Field("VehicleModel")
+	private String vehicleModel;
 
-	    @NotBlank(message = "Qc failiure rate  cannot be blank")
-	   
-	    private double qcFailureRate;
+	@NotBlank(message = "Qc passed units cannot be blank")
+	private int qcPassedUnits;
 
-	   
-	    @Field("anomalyFlag")
-	    private boolean anomalyFlag;
-	    
-	    @Field("anomalyType")
-	    private String anomalyType;
-	   
-	    @Field("comments")
-	    private String comments;
-	    
-	    @Field("shift")
-	    private String shift;
-	    
-	    private int delay;
-	    
-	    private int amountLoss=0;
-	    
-	    @Transient
-	    private Production production;
+	@NotBlank(message = "Qc failed units cannot be blank")
+	private int qcFailedUnits;
 
-		public boolean getAnomalyFlag() {
-			// TODO Auto-generated method stub
-			return false;
-			
-		}
-		
-		 private LocalDateTime qualityStartTime;
-		 private LocalDateTime  qualityEndTime;
+	@NotBlank(message = "Qc failiure rate  cannot be blank")
 
-		    @CreatedDate
-		    private LocalDate createdAt=LocalDate.now();
-		    
-			
+	private double qcFailureRate;
+
+	@Field("anomalyFlag")
+	private boolean anomalyFlag;
+
+	@Field("anomalyType")
+	private String anomalyType;
+
+	@Field("comments")
+	private String comments;
+
+	@Field("shift")
+	private String shift;
+
+	private int delay;
+
+	private int amountLoss = 0;
+
+	@Transient
+	private Production production;
+
+	public boolean getAnomalyFlag() {
+		// TODO Auto-generated method stub
+		return false;
+
+	}
+
+	private LocalDateTime qualityStartTime;
+	private LocalDateTime qualityEndTime;
+
+	@CreatedDate
+	private LocalDate createdAt = LocalDate.now();
 
 }

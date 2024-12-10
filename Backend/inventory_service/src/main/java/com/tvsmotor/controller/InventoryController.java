@@ -38,8 +38,6 @@ public class InventoryController {
 		return inventory.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
-
-
 	@PutMapping("/inv/{batchId}")
 	public ResponseEntity<Inventory> updateAnomaly(@PathVariable int batchId, @RequestBody Inventory payload) {
 
@@ -70,14 +68,14 @@ public class InventoryController {
 			return ResponseEntity.notFound().build(); // Return 404 if the batch ID doesn't exist
 		}
 	}
-	
+
 	@PutMapping("/batch/{batchId}/decrement")
-    public ResponseEntity<Void> decrementInventoryQuantity(@PathVariable int batchId, @RequestParam int stock) {
-        boolean success = inventoryService.decrementQuantity(batchId, stock);
-        if (success) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-    }
+	public ResponseEntity<Void> decrementInventoryQuantity(@PathVariable int batchId, @RequestParam int stock) {
+		boolean success = inventoryService.decrementQuantity(batchId, stock);
+		if (success) {
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
+	}
 }

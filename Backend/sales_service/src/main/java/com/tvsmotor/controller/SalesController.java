@@ -20,30 +20,30 @@ public class SalesController {
 
 	@Autowired
 	private SalesService salesService;
-	
-	 @GetMapping("/inventory/model/{vehicleModel}")
-	    public ResponseEntity<Inventory> getInventoryByModel(@PathVariable String vehicleModel) {
-		 
-	        Inventory inventoryResponse = salesService.getInventory(vehicleModel);
-	        
-	        if (inventoryResponse != null) {
-	            return ResponseEntity.ok(inventoryResponse);
-	        } else {
-	            return ResponseEntity.notFound().build(); // Return 404 if not found
-	        }
-	 }
-	 
-	 @GetMapping("/inventory/vehicle/{vehicleId}")
-	    public ResponseEntity<List<Inventory>> getInventoryByVehicleid(@PathVariable String vehicleId) {
-		 
-	        List<Inventory> inventoryResponse = salesService.getInventoryByVehicleId(vehicleId);
-	        
-	        if (inventoryResponse != null) {
-	            return ResponseEntity.ok(inventoryResponse);
-	        } else {
-	            return ResponseEntity.notFound().build(); // Return 404 if not found
-	        }
-	 }
+
+	@GetMapping("/inventory/model/{vehicleModel}")
+	public ResponseEntity<Inventory> getInventoryByModel(@PathVariable String vehicleModel) {
+
+		Inventory inventoryResponse = salesService.getInventory(vehicleModel);
+
+		if (inventoryResponse != null) {
+			return ResponseEntity.ok(inventoryResponse);
+		} else {
+			return ResponseEntity.notFound().build(); // Return 404 if not found
+		}
+	}
+
+	@GetMapping("/inventory/vehicle/{vehicleId}")
+	public ResponseEntity<List<Inventory>> getInventoryByVehicleid(@PathVariable String vehicleId) {
+
+		List<Inventory> inventoryResponse = salesService.getInventoryByVehicleId(vehicleId);
+
+		if (inventoryResponse != null) {
+			return ResponseEntity.ok(inventoryResponse);
+		} else {
+			return ResponseEntity.notFound().build(); // Return 404 if not found
+		}
+	}
 
 	// GET: Fetch all sales data
 	@GetMapping
@@ -85,10 +85,6 @@ public class SalesController {
 		return ResponseEntity.ok(sales);
 	}
 
-
-
-
-
 	@PostMapping
 	public ResponseEntity<SalesEntity> createSale(@RequestBody SalesEntity salesEntity) {
 		SalesEntity createdSale = salesService.addSale(salesEntity);
@@ -103,16 +99,15 @@ public class SalesController {
 				.orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
 	}
 
-	
-	
-	 @PutMapping("/sell")
-	    public ResponseEntity<String> sellVehicles(@RequestBody SalesEntity salesEntity) {
-	        try {
-	            salesService.sellVehicles(salesEntity);
-	            return ResponseEntity.ok("Successfully sold " + salesEntity.getQuantitySold() + " units of vehicleId " + salesEntity.getVehicleId());
-	        } catch (RuntimeException e) {
-	            return ResponseEntity.status(400).body("Error: " + e.getMessage());
-	        }
-	    }
-	
+	@PutMapping("/sell")
+	public ResponseEntity<String> sellVehicles(@RequestBody SalesEntity salesEntity) {
+		try {
+			salesService.sellVehicles(salesEntity);
+			return ResponseEntity.ok("Successfully sold " + salesEntity.getQuantitySold() + " units of vehicleId "
+					+ salesEntity.getVehicleId());
+		} catch (RuntimeException e) {
+			return ResponseEntity.status(400).body("Error: " + e.getMessage());
+		}
+	}
+
 }

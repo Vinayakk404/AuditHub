@@ -103,14 +103,13 @@ public class QcService {
 			vehicleId = "V104";
 		} else if (Model.equals("Star City")) {
 			vehicleId = "V105";
-		}
-		else if (Model.equals("TVS XL100")) {
+		} else if (Model.equals("TVS XL100")) {
 			vehicleId = "V106";
-		}
-		else if (Model.equals("TVS iQube Electric")) {
+		} else if (Model.equals("TVS iQube Electric")) {
 			vehicleId = "V107";
+		} else {
+			vehicleId = "V108";
 		}
-		else {vehicleId = "V108";}
 
 		inventory.setStock(qcData.getQcPassedUnits());
 		inventory.setVehicleModel(Model);

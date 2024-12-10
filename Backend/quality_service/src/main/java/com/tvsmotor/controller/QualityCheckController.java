@@ -1,6 +1,5 @@
 package com.tvsmotor.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,67 +17,36 @@ import java.util.Optional;
 @RequestMapping("/api/qc")
 public class QualityCheckController {
 
-    @Autowired
-    private QcService qcDataService;
+	@Autowired
+	private QcService qcDataService;
 
-    // Get all QC Data
-    @GetMapping
-    public List<QualityCheck> getAllQCData() {
-        return qcDataService.getAllBatches();
-    }
-    
-    @GetMapping("/productionData")
-    public List<Production> getAllProductionData()
-    {
-    	return qcDataService.getProductionData();
-    }
+	// Get all QC Data
+	@GetMapping
+	public List<QualityCheck> getAllQCData() {
+		return qcDataService.getAllBatches();
+	}
 
-    // Get QC Data by ID
-    @GetMapping("/{batchId}")
-    public QualityCheck getQCDataById(@PathVariable int batchId) {
-        return qcDataService.getBatchById(batchId);
-    }
+	@GetMapping("/productionData")
+	public List<Production> getAllProductionData() {
+		return qcDataService.getProductionData();
+	}
 
-    // Add new QC Data
-    @PostMapping
-    public QualityCheck addQCData(@RequestBody QualityCheck qcData) {
-    	return qcDataService.saveData(qcData);
-       
-    }
+	// Get QC Data by ID
+	@GetMapping("/{batchId}")
+	public QualityCheck getQCDataById(@PathVariable int batchId) {
+		return qcDataService.getBatchById(batchId);
+	}
 
- // PUT mapping for updating QC data
-//    @PutMapping("/{batchId}")
-//    public ResponseEntity<QualityCheck> updateQcData(@PathVariable int batchId, @RequestBody QualityCheck updatedQcData) {
-//        Optional<QualityCheck> existingQcData = qcDataService.findById(batchId);
-//        if (existingQcData.isPresent()) {
-//            QualityCheck qcData = existingQcData.get();
-//            
-//            // Update fields with new values from the request body
-//            qcData.setVehicleModel(updatedQcData.getVehicleModel());
-//            qcData.setPlannedProductionUnits(updatedQcData.getPlannedProductionUnits());
-//            qcData.setProducedUnits(updatedQcData.getProducedUnits());
-//            qcData.setQc_passed_units(updatedQcData.getQc_passed_units());
-//            qcData.setQc_failed_units(updatedQcData.getQc_failed_units());
-//            qcData.setQc_failure_rate(updatedQcData.getQc_failure_rate());
-//            qcData.setShift(updatedQcData.getShift());
-//            qcData.setAnomaly(updatedQcData.getAnomaly());
-//            qcData.setAnomalyFlag(updatedQcData.getAnomalyFlag());
-//            
-//            // Save the updated data
-//            qcDataService.save(qcData);
-//            return ResponseEntity.ok(qcData);
-//        } else {
-//            return ResponseEntity.notFound().build();  // Handle case where data isn't found
-//        }
-//    }
+	// Add new QC Data
+	@PostMapping
+	public QualityCheck addQCData(@RequestBody QualityCheck qcData) {
+		return qcDataService.saveData(qcData);
 
-    // Delete QC Data by ID
-    @DeleteMapping("/{batchId}")
-    public void deleteQCData(@PathVariable int batchId) {
-        qcDataService.deleteBatch(batchId);
-    }
+	}
+
+	// Delete QC Data by ID
+	@DeleteMapping("/{batchId}")
+	public void deleteQCData(@PathVariable int batchId) {
+		qcDataService.deleteBatch(batchId);
+	}
 }
-
-
-
-

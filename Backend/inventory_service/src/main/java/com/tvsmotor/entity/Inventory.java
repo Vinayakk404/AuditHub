@@ -22,7 +22,6 @@ public class Inventory {
 	@Id
 	private String inventoryId;
 
-	
 	private String planId;
 	@NotBlank(message = "batch Id cannot be blank")
 	private int batchId;
@@ -45,12 +44,9 @@ public class Inventory {
 
 	@CreatedDate
 	private LocalDate createdAt = LocalDate.now();
-    
 
-    private int defectiveLoss=0;
-    
-    private int damagedLoss=0;
-    
+	private int defectiveLoss = 0;
 
+	private int damagedLoss = 0;
 
 }
