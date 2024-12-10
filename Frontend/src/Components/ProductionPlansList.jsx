@@ -1,7 +1,7 @@
 // src/components/ProductionPlansList.jsx
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const ProductionPlansList = ({ plans }) => {
   // Group plans by planId
@@ -15,7 +15,9 @@ const ProductionPlansList = ({ plans }) => {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-4">Production Plans for the Selected Date</h2>
+      <h2 className="text-2xl font-semibold mb-4">
+        Production Plans for the Selected Date
+      </h2>
       {Object.keys(groupedPlans).length === 0 ? (
         <p>No production plans available for this date.</p>
       ) : (
@@ -33,14 +35,20 @@ const ProductionPlansList = ({ plans }) => {
                 </tr>
               </thead>
               <tbody>
-                {plans.map(plan => (
+                {plans.map((plan) => (
                   <tr key={plan.productionId}>
                     <td className="py-2 px-4 border">{plan.vehicleModel}</td>
                     <td className="py-2 px-4 border">{plan.shift}</td>
-                    <td className="py-2 px-4 border">{plan.plannedProductionUnits}</td>
-                    <td className="py-2 px-4 border">{plan.actualProductionUnits || '-'}</td>
-                 
-                    <td className="py-2 px-4 border">{plan.anomalyType || '-'}</td>
+                    <td className="py-2 px-4 border">
+                      {plan.plannedProductionUnits}
+                    </td>
+                    <td className="py-2 px-4 border">
+                      {plan.actualProductionUnits || "-"}
+                    </td>
+
+                    <td className="py-2 px-4 border">
+                      {plan.anomalyType || "-"}
+                    </td>
                   </tr>
                 ))}
               </tbody>

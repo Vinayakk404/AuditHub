@@ -51,18 +51,17 @@ const InventoryPage = () => {
           subText="Manage and  update vehicles"
         />
         <div className="container mx-auto p-4">
-
           {/* Conditionally render the views based on currentView state */}
           {currentView === "inventory" && <Inventory />}
           {/* <Footer /> */}
-          {currentView==="graphs" && (
+          {currentView === "graphs" && (
             <iframe
-            src="http://localhost:3000/public/dashboard/e4ac352c-c4ab-4192-85c1-93d501eca393"
-            frameborder="0"
-            width="1100"
-            height="1600"
-            allowtransparency
-        ></iframe>
+              src="http://localhost:3000/public/dashboard/e4ac352c-c4ab-4192-85c1-93d501eca393"
+              frameborder="0"
+              width="1100"
+              height="1600"
+              allowtransparency
+            ></iframe>
           )}
         </div>
       </div>

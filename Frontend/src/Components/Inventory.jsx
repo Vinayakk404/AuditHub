@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect } from "react";
 import VehicleCard from "./VehicleCard";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
-import axios from '../utils/axoisConfig'
+import axios from "../utils/axoisConfig";
 
 const Inventory = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -23,18 +22,23 @@ const Inventory = () => {
     fetchVehicles();
   }, []);
 
-  const location=useLocation();
-  const isSales=location.pathname==="/sales"||location.pathname==="/Sales" || location.pathname==="/Production";
+  const location = useLocation();
+  const isSales =
+    location.pathname === "/sales" ||
+    location.pathname === "/Sales" ||
+    location.pathname === "/Production";
   const fetchVehicles = async () => {
     try {
-      const response = await fetch("http://ec2-54-171-48-97.eu-west-1.compute.amazonaws.com:8080/api/inventory/inv",{
-        
-          method: 'GET',
+      const response = await fetch(
+        "http://ec2-54-171-48-97.eu-west-1.compute.amazonaws.com:8080/api/inventory/inv",
+        {
+          method: "GET",
           headers: {
-              'Content-type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem("token")}`, // notice the Bearer before your token
+            "Content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // notice the Bearer before your token
           },
-      });
+        }
+      );
       // if (!response.ok) throw new Error("Failed to fetch vehicles");
       const data = await response.json();
 
@@ -145,18 +149,21 @@ const Inventory = () => {
 
   // Handle updating a vehicle's stock and anomaly
   const handleUpdateVehicle = async () => {
-   
     // Ensure input stock does not exceed available stock
-    const selectedBatch = batchOptions.find(batch => batch.batchId == batchId);
-    console.log(selectedBatch)
+    const selectedBatch = batchOptions.find(
+      (batch) => batch.batchId == batchId
+    );
+    console.log(selectedBatch);
     if (inputStock > Number(selectedBatch.stock)) {
-      toast.error("Input stock must be less than or equal to the available stock for the selected batch.", {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      toast.error(
+        "Input stock must be less than or equal to the available stock for the selected batch.",
+        {
+          position: "top-right",
+          autoClose: 3000,
+        }
+      );
     }
-      
-    
+
     let damagedStock = 0;
     let defectiveStock = 0;
     if (anomalyCategory == "Damaged Units") {
@@ -167,18 +174,20 @@ const Inventory = () => {
 
     // Create an updated vehicle object
     const updatedVehicle = {
-
       stock: Number(inputStock), // Use input stock
-      damagedStock : anomalyCategory==="Damaged Units"?Number(inputStock):0 ,
-      defectiveStock : anomalyCategory==="Defective Units"?Number(inputStock):0,
+      damagedStock:
+        anomalyCategory === "Damaged Units" ? Number(inputStock) : 0,
+      defectiveStock:
+        anomalyCategory === "Defective Units" ? Number(inputStock) : 0,
     };
     console.log(updatedVehicle);
-    console.log(batchId)
+    console.log(batchId);
 
     try {
       const response = await axios.put(
         `http://ec2-54-171-48-97.eu-west-1.compute.amazonaws.com:8080/api/inventory/inv/${batchId}`,
-         updatedVehicle);
+        updatedVehicle
+      );
 
       // if (!response.ok) throw new Error("Failed to update vehicle");
       fetchVehicles();
@@ -198,7 +207,7 @@ const Inventory = () => {
       setInputStock(0);
       setBatchId("");
       setAnomalyCategory("");
-    setSearchTerm("")
+      setSearchTerm("");
     } catch (error) {
       console.error("Error updating vehicle:", error);
       toast.error(`Error updating vehicle: ${error.message}`, {
@@ -213,7 +222,7 @@ const Inventory = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 ">
-                <h1 className="text-2xl font-bold mb-4">Vehicle Inventory</h1>
+      <h1 className="text-2xl font-bold mb-4">Vehicle Inventory</h1>
       <ToastContainer />
 
       {/* Search and Filters */}
@@ -253,85 +262,82 @@ const Inventory = () => {
           )}
         </div>
 
-        { !isSales &&
-        <div className="flex-1 mb-4 md:mb-0">
-          <label
-            htmlFor="batchId"
-            className="block text-gray-700 font-semibold mb-2"
-          >
-            Select Batch ID
-          </label>
-          <select
-            id="batchId"
-            value={batchId}
-            onChange={handleBatchIdChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">Select a Batch ID</option>
-            {batchOptions.map(({ batchId, stock }) => (
-              <option key={batchId} value={batchId}>
-                {batchId} (Stock: {stock})
-              </option>
-            ))}
-          </select>
-        </div>
-}
-        { !isSales &&
-        <div className="flex-1 mb-4 md:mb-0">
-          <label
-            htmlFor="inputStock"
-            className="block text-gray-700 font-semibold mb-2"
-          >
-            Input Stock
-          </label>
-          <input
-            type="number"
-            id="inputStock"
-            value={inputStock}
-            onChange={handleStockInputChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            min="0"
-            placeholder="Enter new stock"
-          />
-        </div>
-}
-{ !isSales &&
-
-       
-        <div className="flex-1 mb-4 md:mb-0">
-          <label
-            htmlFor="anomalyCategory"
-            className="block text-gray-700 font-semibold mb-2"
-          >
-            Select Anomaly Category
-          </label>
-          <select
-            id="anomalyCategory"
-            value={anomalyCategory}
-            onChange={handleAnomalyCategoryChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">Select Anomaly</option>
-            <option value="Damaged Units">Damaged Units</option>
-            <option value="Defective Units">Defective Units</option>
-            {/* Add more anomaly categories as needed */}
-          </select>
-        </div>
-}
+        {!isSales && (
+          <div className="flex-1 mb-4 md:mb-0">
+            <label
+              htmlFor="batchId"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Select Batch ID
+            </label>
+            <select
+              id="batchId"
+              value={batchId}
+              onChange={handleBatchIdChange}
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select a Batch ID</option>
+              {batchOptions.map(({ batchId, stock }) => (
+                <option key={batchId} value={batchId}>
+                  {batchId} (Stock: {stock})
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        {!isSales && (
+          <div className="flex-1 mb-4 md:mb-0">
+            <label
+              htmlFor="inputStock"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Input Stock
+            </label>
+            <input
+              type="number"
+              id="inputStock"
+              value={inputStock}
+              onChange={handleStockInputChange}
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              min="0"
+              placeholder="Enter new stock"
+            />
+          </div>
+        )}
+        {!isSales && (
+          <div className="flex-1 mb-4 md:mb-0">
+            <label
+              htmlFor="anomalyCategory"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Select Anomaly Category
+            </label>
+            <select
+              id="anomalyCategory"
+              value={anomalyCategory}
+              onChange={handleAnomalyCategoryChange}
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select Anomaly</option>
+              <option value="Damaged Units">Damaged Units</option>
+              <option value="Defective Units">Defective Units</option>
+              {/* Add more anomaly categories as needed */}
+            </select>
+          </div>
+        )}
       </div>
 
-{!isSales &&
-     
-      <div className="mb-4">
-        <button
-          onClick={handleUpdateVehicle}
-          className="bg-blue-500 text-white font-semibold px-4 py-2 rounded-md hover:bg-blue-600"
-          disabled={!batchId || !anomalyCategory || inputStock < 0}
-        >
-          Update
-        </button>
-      </div>
-}
+      {!isSales && (
+        <div className="mb-4">
+          <button
+            onClick={handleUpdateVehicle}
+            className="bg-blue-500 text-white font-semibold px-4 py-2 rounded-md hover:bg-blue-600"
+            disabled={!batchId || !anomalyCategory || inputStock < 0}
+          >
+            Update
+          </button>
+        </div>
+      )}
       {/* Vehicles List with Animation */}
       <AnimatePresence>
         {groupedVehicles.length > 0 ? (

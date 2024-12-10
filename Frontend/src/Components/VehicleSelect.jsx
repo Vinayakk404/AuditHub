@@ -40,13 +40,19 @@ const CustomOption = (props) => {
   return (
     <div ref={innerRef} {...innerProps} className="flex flex-col">
       <span className="font-semibold">{data.label}</span>
-      <span className="text-sm text-gray-500">Price: ₹{data.productionPrice.toLocaleString()}</span>
+      <span className="text-sm text-gray-500">
+        Price: ₹{data.productionPrice.toLocaleString()}
+      </span>
       <span className="text-sm text-gray-500">Plant: {data.plant}</span>
     </div>
   );
 };
 
-const VehicleSelect = ({ selectedVehicles, setSelectedVehicles, maxSelection }) => {
+const VehicleSelect = ({
+  selectedVehicles,
+  setSelectedVehicles,
+  maxSelection,
+}) => {
   const isMaxSelected = selectedVehicles.length >= maxSelection;
 
   // Disable options when max selection is reached

@@ -5,9 +5,8 @@ import axios from "../utils/axoisConfig";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 const Login2 = () => {
-  const [errorMessage,setErrorMessage]=useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const handleOverlayClick = () => {
-
     const container = document.getElementById("container2");
     const overlayBtn = document.getElementById("overlayBtn");
 
@@ -27,25 +26,27 @@ const Login2 = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!username) {
-
-      setErrorMessage("Username is required")
+      setErrorMessage("Username is required");
       return;
     }
     if (!password) {
-      setErrorMessage("Password is required")
+      setErrorMessage("Password is required");
       return;
     }
     if (role === "-") {
-      setErrorMessage("Role is required")
+      setErrorMessage("Role is required");
       return;
     }
 
     try {
       // Adjust the payload based on your backend's expected structure
-      const response = await axios.post("http://ec2-54-171-48-97.eu-west-1.compute.amazonaws.com:8080/auth/token", {
-        username,
-        password,
-      });
+      const response = await axios.post(
+        "http://ec2-54-171-48-97.eu-west-1.compute.amazonaws.com:8080/auth/token",
+        {
+          username,
+          password,
+        }
+      );
 
       const token = response.data; // Assuming roles is an array
 
@@ -70,17 +71,16 @@ const Login2 = () => {
       } else if (username == "SalesManager" && role == "Sales") {
         localStorage.setItem("role", "Sales");
         navigate("/sales");
-      } else if ((username == "QualityManager" && role == "Quality")) {
+      } else if (username == "QualityManager" && role == "Quality") {
         localStorage.setItem("role", "Quality");
         navigate("/Quality");
       } else {
-        setErrorMessage("Incorrect Role Selection")
+        setErrorMessage("Incorrect Role Selection");
         return;
       }
     } catch (error) {
       console.error(error);
-      setErrorMessage("Incorrect credentials")
-     
+      setErrorMessage("Incorrect credentials");
     }
   };
 
@@ -105,8 +105,8 @@ const Login2 = () => {
       <div className="form__container signin__container">
         <random>
           <h1>Sign in</h1>
-     {/* Total Loss Display */}
-     {errorMessage!="" && (
+          {/* Total Loss Display */}
+          {errorMessage != "" && (
             <div className="mt-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
               <p className="font-semibold">{errorMessage}</p>
             </div>
@@ -116,16 +116,22 @@ const Login2 = () => {
               type="text"
               placeholder="Username "
               value={username}
-              onChange={(e) => {setUsername(e.target.value);setErrorMessage("")}}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                setErrorMessage("");
+              }}
               required
-            /> 
+            />
           </div>
           <div className="form__group" required>
             <input
               type="password"
               placeholder="Password"
               value={password}
-              onChange={(e) => {setPassword(e.target.value);  setErrorMessage("")}}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setErrorMessage("");
+              }}
               required
             />
           </div>
@@ -133,12 +139,13 @@ const Login2 = () => {
           <select
             className="w-[400px] px-3 py-2 mt-4 border-blue-300  rounded focus:outline-none focus:ring focus:border-blue-300"
             value={role}
-            onChange={(e) => {setRole(e.target.value);setErrorMessage("")}}
+            onChange={(e) => {
+              setRole(e.target.value);
+              setErrorMessage("");
+            }}
             required
           >
-            <option value="-" >
-              Select Role
-            </option>
+            <option value="-">Select Role</option>
             <option value="Production">Production Manager</option>
             <option value="Plant">Plant Manager</option>
             <option value="Quality">Quality Control</option>

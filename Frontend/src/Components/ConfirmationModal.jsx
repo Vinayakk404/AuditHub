@@ -4,9 +4,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ConfirmationModal = ({ data, onClose }) => {
-  console.log(data)
+  console.log(data);
   return (
-
     <div
       className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50"
       aria-modal="true"
@@ -29,7 +28,9 @@ const ConfirmationModal = ({ data, onClose }) => {
               {data.map((item, index) => (
                 <tr key={index}>
                   <td className="py-2 px-4 border">{item.vehicleModel}</td>
-                  <td className="py-2 px-4 border">{item.plannedProductionUnits}</td>
+                  <td className="py-2 px-4 border">
+                    {item.plannedProductionUnits}
+                  </td>
                   <td className="py-2 px-4 border">{item.plantId}</td>
                   <td className="py-2 px-4 border">{item.date}</td>
                   <td className="py-2 px-4 border">{item.shift}</td>

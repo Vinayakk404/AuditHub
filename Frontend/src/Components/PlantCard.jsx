@@ -1,5 +1,5 @@
 // src/components/PlantCard.js
-import React from 'react';
+import React from "react";
 
 const PlantCard = ({ plant }) => {
   return (

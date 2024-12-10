@@ -1,5 +1,5 @@
 // src/components/ShiftCard.js
-import React from 'react';
+import React from "react";
 
 const ShiftCard = ({ shiftName, units, onUnitsChange }) => {
   return (

@@ -45,7 +45,6 @@ const PlantManagerPage = () => {
     // console.log(todayIST);
     // Compare the formatted dates
     return formattedDates.toISOString().slice(0, 10) === todayIST;
-  
   };
 
   const fetchPlansForDate = async (date) => {
@@ -75,9 +74,11 @@ const PlantManagerPage = () => {
 
   return (
     <div className="flex container w-screen  p-4">
-      
       <aside className="w-96 bg-white shadow-md p-6 text-center h-[2200px]">
-        <h1 className="text-3xl font-bold mb-6 flex justify-center "><FaRegCalendarAlt className="mr-3"/>Calendar</h1>
+        <h1 className="text-3xl font-bold mb-6 flex justify-center ">
+          <FaRegCalendarAlt className="mr-3" />
+          Calendar
+        </h1>
 
         <CalendarComponent onDateChange={handleDateChange} />
         <Logout />
@@ -93,12 +94,10 @@ const PlantManagerPage = () => {
           selectedDate && (
             <div className="mt-6">
               <ProductionPlansList plans={productionPlans} />
-            
-              {
-                todayDate(new Date(selectedDate)) &&
+
+              {todayDate(new Date(selectedDate)) &&
                 planId &&
-                productionPlans[0].status=="Pending" && (
-                  
+                productionPlans[0].status == "Pending" && (
                   <ProductionEntryForm
                     planId={planId}
                     productionPlans={productionPlans}

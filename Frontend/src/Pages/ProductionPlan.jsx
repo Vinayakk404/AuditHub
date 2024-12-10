@@ -32,7 +32,6 @@ import { getDatesBetween } from "../utils/dateUtils"; // Utility function for da
 import { Pie } from "react-chartjs-2";
 import Header from "../Components/Header";
 import Inventory from "../Components/Inventory";
-import ChartPages from "./ChartPages";
 import Logout from "../Components/Logout";
 
 // Define the shift options
@@ -686,7 +685,7 @@ const [errorMessage,setErrorMessage]=useState("");
               allowtransparency
               allowFullScreen
             ></iframe>
-            <ChartPages />
+         
 
             {/* Data Visualization */}
             <section className="bg-white p-6 rounded-lg shadow-md mb-6">

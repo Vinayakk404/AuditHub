@@ -2,7 +2,7 @@
 import React from 'react';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
-import VehicleSelect from '../components/VehicleSelect';
+import VehicleSelect from '../Components/VehicleSelect';
 // Predefined list of vehicles
 const vehicleOptions = [
   { value: 'Apache', label: 'Apache' },

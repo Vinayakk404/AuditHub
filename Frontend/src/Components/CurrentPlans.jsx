@@ -128,7 +128,9 @@ const CurrentPlans = ({ plans }) => {
           <tbody>
             {filteredPlans.length > 0 ? (
               filteredPlans.map((plan) => (
-                <tr key={`${plan.planId}-${plan.vehicleId}-${plan.shift}-${plan.date}`}>
+                <tr
+                  key={`${plan.planId}-${plan.vehicleId}-${plan.shift}-${plan.date}`}
+                >
                   <td className="py-2 px-4 border">{plan.planId}</td>
                   {console.log(plan)}
                   <td className="py-2 px-4 border">{plan.budget}</td>

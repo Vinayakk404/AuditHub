@@ -1,5 +1,5 @@
 // src/components/FeedbackModal.js
-import React from 'react';
+import React from "react";
 
 const FeedbackModal = ({ message, onClose }) => {
   return (

@@ -39,8 +39,8 @@ const SHIFT_START_TIMES = {
 const getTodayDate = () => {
   const today = new Date();
   const year = today.getFullYear();
-  const month = (`0${today.getMonth() + 1}`).slice(-2);
-  const day = (`0${today.getDate()}`).slice(-2);
+  const month = `0${today.getMonth() + 1}`.slice(-2);
+  const day = `0${today.getDate()}`.slice(-2);
   return `${year}-${month}-${day}`;
 };
 
@@ -59,7 +59,9 @@ const ProductionPlanPage = () => {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/productionData/plans");
+        const response = await axios.get(
+          "http://localhost:8080/api/productionData/plans"
+        );
         const data = response.data;
         setPlans(data);
 
@@ -84,31 +86,32 @@ const ProductionPlanPage = () => {
       planId: plan.planId,
       durationDays: plan.days,
       budget: plan.budget,
-      vehicles: plan.vehicles && plan.vehicles.length > 0
-        ? plan.vehicles.map((vehicle) => ({
-            planId: plan.planId,
-            vehicleModel: vehicle.vehicleModel || "",
-            productionLine: vehicle.productionLine || "",
-            shift: vehicle.shift || "Morning",
-            plannedProductionUnits: vehicle.plannedProductionUnits || "",
-            productionStartTime: vehicle.productionStartTime || "",
-            operatorId: vehicle.operatorId || "",
-            vehicleId: vehicle.vehicleId || "",
-            comments: vehicle.comments || "",
-          }))
-        : [
-            {
+      vehicles:
+        plan.vehicles && plan.vehicles.length > 0
+          ? plan.vehicles.map((vehicle) => ({
               planId: plan.planId,
-              vehicleModel: "",
-              productionLine: "",
-              shift: "Morning",
-              plannedProductionUnits: "",
-              productionStartTime: "", // Will be set based on shift
-              operatorId: "",
-              vehicleId: "",
-              comments: "",
-            },
-          ],
+              vehicleModel: vehicle.vehicleModel || "",
+              productionLine: vehicle.productionLine || "",
+              shift: vehicle.shift || "Morning",
+              plannedProductionUnits: vehicle.plannedProductionUnits || "",
+              productionStartTime: vehicle.productionStartTime || "",
+              operatorId: vehicle.operatorId || "",
+              vehicleId: vehicle.vehicleId || "",
+              comments: vehicle.comments || "",
+            }))
+          : [
+              {
+                planId: plan.planId,
+                vehicleModel: "",
+                productionLine: "",
+                shift: "Morning",
+                plannedProductionUnits: "",
+                productionStartTime: "", // Will be set based on shift
+                operatorId: "",
+                vehicleId: "",
+                comments: "",
+              },
+            ],
     });
   };
 
@@ -229,7 +232,10 @@ const ProductionPlanPage = () => {
       console.log("Submitted Payload:", payload);
     } catch (error) {
       console.error("Failed to submit the plan:", error);
-      toast.error("Failed to submit the plan: " + (error.response?.data?.message || error.message));
+      toast.error(
+        "Failed to submit the plan: " +
+          (error.response?.data?.message || error.message)
+      );
       console.log("Submitted Payload:", payload);
     }
   };
@@ -239,7 +245,9 @@ const ProductionPlanPage = () => {
       {/* Sidebar */}
       <aside className="w-64 min-h-screen border-r border-gray-200 bg-white ">
         <div className="p-4">
-          <h1 className="text-2xl font-bold text-gray-800 mb-16 text-center">Production Plans</h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-16 text-center">
+            Production Plans
+          </h1>
           {plans.length === 0 ? (
             <p className="text-center text-gray-500">No plans available.</p>
           ) : (
@@ -248,7 +256,9 @@ const ProductionPlanPage = () => {
                 <li key={plan.planId} className="mb-2">
                   <button
                     onClick={() => onSelectPlan(plan.planId)}
-                    aria-current={selectedPlanId === plan.planId ? "page" : undefined}
+                    aria-current={
+                      selectedPlanId === plan.planId ? "page" : undefined
+                    }
                     className={`w-full text-left px-4 py-2 rounded-md transition-colors duration-200 flex items-center justify-between ${
                       selectedPlanId === plan.planId
                         ? "bg-blue-500 text-white"
@@ -264,12 +274,14 @@ const ProductionPlanPage = () => {
           )}
         </div>
       </aside>
-   
+
       {/* Main Content */}
       <main className="flex-1 p-6 bg-gray-100 overflow-auto">
-     
         {selectedPlan ? (
-          <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full">
+          <form
+            onSubmit={handleSubmit}
+            className="bg-white p-6 rounded-lg shadow-md w-full"
+          >
             <h2 className="text-2xl font-bold mb-4 text-gray-800">
               Plan {formData.planId} Details
             </h2>
@@ -366,11 +378,13 @@ const ProductionPlanPage = () => {
                           : "Select Production Line"}
                       </option>
                       {vehicle.vehicleModel &&
-                        PRODUCTION_LINE_OPTIONS[vehicle.vehicleModel]?.map((line) => (
-                          <option key={line} value={line}>
-                            {line}
-                          </option>
-                        ))}
+                        PRODUCTION_LINE_OPTIONS[vehicle.vehicleModel]?.map(
+                          (line) => (
+                            <option key={line} value={line}>
+                              {line}
+                            </option>
+                          )
+                        )}
                     </select>
                   </label>
 
@@ -412,7 +426,6 @@ const ProductionPlanPage = () => {
                       type="datetime-local"
                       name="productionStartTime"
                       value={vehicle.productionStartTime}
-                      
                       className="mt-1 p-2 w-full border border-gray-300 rounded bg-gray-100 cursor-not-allowed"
                       required
                     />
@@ -484,7 +497,9 @@ const ProductionPlanPage = () => {
             </div>
           </form>
         ) : (
-          <p className="text-center text-gray-500">Select a plan to view details.</p>
+          <p className="text-center text-gray-500">
+            Select a plan to view details.
+          </p>
         )}
       </main>
     </div>

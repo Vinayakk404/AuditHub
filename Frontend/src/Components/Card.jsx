@@ -58,7 +58,9 @@ const Card = ({ imgUrl, bgColor, text }) => {
       }}
     >
       {/* Image container with padding */}
-      <div className="w-1/2 h-full p-2"> {/* Add padding here */}
+      <div className="w-1/2 h-full p-2">
+        {" "}
+        {/* Add padding here */}
         <img
           src={imgUrl}
           alt={imgUrl}
@@ -69,8 +71,14 @@ const Card = ({ imgUrl, bgColor, text }) => {
       {/* Text container */}
       <div className="flex flex-col justify-center w-1/2 h-full p-4">
         <div className="bg-white bg-opacity-80 rounded-lg p-6 shadow-md h-full flex flex-col ">
-          <div><h2 className="text-4xl text-gray-800 font-bold text-center  mt-0 ">{text.title}</h2></div>
-          <p className="text-xl text-gray-600  mt-20 ml-6">{text.description}</p>
+          <div>
+            <h2 className="text-4xl text-gray-800 font-bold text-center  mt-0 ">
+              {text.title}
+            </h2>
+          </div>
+          <p className="text-xl text-gray-600  mt-20 ml-6">
+            {text.description}
+          </p>
         </div>
       </div>
     </motion.div>

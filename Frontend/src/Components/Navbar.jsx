@@ -1,7 +1,7 @@
 // Navbar.js
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Link, Navigate } from 'react-router-dom';
+import React from "react";
+import { motion } from "framer-motion";
+import { Link, Navigate } from "react-router-dom";
 
 const Navbar = () => {
   // Define animation variants
@@ -19,7 +19,11 @@ const Navbar = () => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100 },
+    },
   };
 
   return (
@@ -37,30 +41,40 @@ const Navbar = () => {
       {/* Navigation Links */}
       <motion.div variants={itemVariants}>
         <ul className="flex gap-6 text-sm uppercase font-semibold">
-          <li className="cursor-pointer hover:text-gray-50 transition-colors duration-300">Home</li>
-          <li className="cursor-pointer hover:text-blue-400 transition-colors duration-300"
+          <li className="cursor-pointer hover:text-gray-50 transition-colors duration-300">
+            Home
+          </li>
+          <li
+            className="cursor-pointer hover:text-blue-400 transition-colors duration-300"
             onClick={() => {
-              const element = document.getElementById('services');
+              const element = document.getElementById("services");
               element?.scrollIntoView({
-                behavior: 'smooth'
-              }); }}>Services+</li>
-          <li className="cursor-pointer hover:text-blue-400 transition-colors duration-300"
+                behavior: "smooth",
+              });
+            }}
+          >
+            Services+
+          </li>
+          <li
+            className="cursor-pointer hover:text-blue-400 transition-colors duration-300"
             onClick={() => {
-              const element = document.getElementById('production-flow');
+              const element = document.getElementById("production-flow");
               element?.scrollIntoView({
-                behavior: 'smooth'
-              }); }}>Production Flow</li>
-
+                behavior: "smooth",
+              });
+            }}
+          >
+            Production Flow
+          </li>
         </ul>
       </motion.div>
 
       {/* Login Button */}
       <motion.div variants={itemVariants}>
-       <Link to="/login">
-        <button 
-         className=" ml-14 d   bg-green-600 py-2 px-6 rounded-xl text-base uppercase font-semibold hover:bg-green-700 transition-colors duration-300">
-          Log in
-        </button>
+        <Link to="/login">
+          <button className=" ml-14 d   bg-green-600 py-2 px-6 rounded-xl text-base uppercase font-semibold hover:bg-green-700 transition-colors duration-300">
+            Log in
+          </button>
         </Link>
       </motion.div>
     </motion.div>

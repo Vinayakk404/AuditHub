@@ -1,8 +1,8 @@
 // src/components/ProtectedRoute.jsx
 
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { isAuthenticated, getUserRole } from '../utils/auth';
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { isAuthenticated, getUserRole } from "../utils/auth";
 
 const ProtectedRoute = () => {
   if (!isAuthenticated()) {
@@ -15,18 +15,18 @@ const ProtectedRoute = () => {
 
   // Define role-based redirection paths
   const rolePaths = {
-    admin: '/admin',
-    operator: '/operator',
-    quality: '/quality',
-    inventory: '/inventory',
-    sales: '/sales',
+    admin: "/admin",
+    operator: "/operator",
+    quality: "/quality",
+    inventory: "/inventory",
+    sales: "/sales",
     // Add more roles and paths as needed
   };
 
   // If already on a role-specific page, allow access
-  // Else, redirect based on role   
+  // Else, redirect based on role
   const currentPath = window.location.pathname;
-  const assignedPath = rolePaths[role] || '/';
+  const assignedPath = rolePaths[role] || "/";
 
   if (!currentPath.startsWith(assignedPath)) {
     return <Navigate to={assignedPath} replace />;

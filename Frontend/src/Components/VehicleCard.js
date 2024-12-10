@@ -12,20 +12,20 @@ const VEHICLE_IMAGE_MAPPING = {
   V104: "https://www.tvsmotor.com/tvs-jupiter/-/media/Feature/BrandPriceCity/JupiterBikeImg.webp",
   V105: "https://static.autox.com/uploads/bikes/2017/05/1486028280-tvs-star-city-plus.jpg",
   V106: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjgRns7F3Y8jptuxj3lJZrO6_dt2r0Kk997w&s",
-  V107:"https://imgd.aeplcdn.com/664x374/n/bw/models/colors/tvs-select-model-wallnut-brown-1715634491365.png?q=80",
-  V108:"https://images.carandbike.com/cms/TVS_Raider_9d7bc11c88.jpg"
+  V107: "https://imgd.aeplcdn.com/664x374/n/bw/models/colors/tvs-select-model-wallnut-brown-1715634491365.png?q=80",
+  V108: "https://images.carandbike.com/cms/TVS_Raider_9d7bc11c88.jpg",
   // Add more mappings as needed
 };
 
 const Card = ({ vehicle }) => {
   // Retrieve the image URL based on the vehicleId
-  const imgUrl = VEHICLE_IMAGE_MAPPING[vehicle.vehicleId] || "https://via.placeholder.com/400x300?text=Default+Image";
+  const imgUrl =
+    VEHICLE_IMAGE_MAPPING[vehicle.vehicleId] ||
+    "https://via.placeholder.com/400x300?text=Default+Image";
 
   // Determine vehicle.stock color based on the value
   const stockColor = vehicle.stock < 100 ? "text-red-500" : "text-green-500";
 
-
-  
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -57,8 +57,10 @@ const Card = ({ vehicle }) => {
         </p>
         <p className={`text-md font-bold text-center ${stockColor}`}>
           <span className="font-medium">Stock:</span> {vehicle.stock}
-          <br/>
-        {vehicle.stock<100 &&(  <span className=" text-red-500">Low Stock!</span>)}
+          <br />
+          {vehicle.stock < 100 && (
+            <span className=" text-red-500">Low Stock!</span>
+          )}
         </p>
       </div>
     </motion.div>

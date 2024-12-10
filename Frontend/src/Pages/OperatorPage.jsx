@@ -1,23 +1,23 @@
 // src/components/OperatorPage.jsx
-import React, { useState, useEffect } from 'react';
-import axios from '../utils/axoisConfig';
-import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import Header from "../Components/Header"
+import React, { useState, useEffect } from "react";
+import axios from "../utils/axoisConfig";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import Header from "../Components/Header";
 const OperatorPage = () => {
   const { operatorId } = useParams(); // Get operatorId from URL
   const [batches, setBatches] = useState([]);
   const [selectedBatch, setSelectedBatch] = useState(null);
   const [updateData, setUpdateData] = useState({
-    productionStartTime: '',
-    productionEndTime: '',
+    productionStartTime: "",
+    productionEndTime: "",
     anomalyFlag: false,
-    anomalyType: '',
-    anomalyComments: '',
-    actualProducedUnits: '',
-    status: 'On Hold',
+    anomalyType: "",
+    anomalyComments: "",
+    actualProducedUnits: "",
+    status: "On Hold",
   });
-  const [planIds, setPlanIds] = useState([1,2,3,4]);
+  const [planIds, setPlanIds] = useState([1, 2, 3, 4]);
   const [selectedPlanId, setSelectedPlanId] = useState(null);
 
   const fetchBatches = async () => {
@@ -26,22 +26,21 @@ const OperatorPage = () => {
         `http://localhost:8080/api/productionData/operator/${operatorId}`
       );
       setBatches(response.data);
-console.log(response.data)
+      console.log(response.data);
       // Extract unique Plan IDs for the sidebar
       const uniquePlanIds = [
         ...new Set(response.data.map((batch) => batch.planId)),
       ];
       setPlanIds(uniquePlanIds);
-      
     } catch (error) {
-      toast.error("Error Fetching data",error)
+      toast.error("Error Fetching data", error);
 
       console.error(error);
     }
   };
   useEffect(() => {
     // Fetch batches assigned to the operator
-  
+
     fetchBatches();
   }, [operatorId]);
 
@@ -50,15 +49,15 @@ console.log(response.data)
     setUpdateData({
       productionStartTime: batch.productionStartTime
         ? new Date(batch.productionStartTime).toLocaleString()
-        : '',
+        : "",
       productionEndTime: batch.productionEndTime
         ? batch.productionEndTime.slice(0, 16) // Format for datetime-local
-        : '',
+        : "",
       anomalyFlag: batch.anomalyFlag || false,
-      anomalyType: batch.anomalyType || '',
-      anomalyComments: batch.anomalyComments || '',
-      actualProductionUnits: batch.actualProducedUnits || '',
-      status: batch.status || 'On Hold',
+      anomalyType: batch.anomalyType || "",
+      anomalyComments: batch.anomalyComments || "",
+      actualProductionUnits: batch.actualProducedUnits || "",
+      status: batch.status || "On Hold",
     });
   };
 
@@ -66,9 +65,10 @@ console.log(response.data)
     const { name, value, type, checked } = e.target;
     setUpdateData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
       // Reset anomalyComments if anomalyType is not 'Other'
-      ...(name === 'anomalyType' && value !== 'Other' && { anomalyComments: '' }),
+      ...(name === "anomalyType" &&
+        value !== "Other" && { anomalyComments: "" }),
     }));
   };
 
@@ -86,7 +86,8 @@ console.log(response.data)
         : null,
       anomalyFlag: updateData.anomalyFlag,
       anomalyType: updateData.anomalyType,
-      anomalyComments: updateData.anomalyType === 'Other' ? updateData.anomalyComments : '',
+      anomalyComments:
+        updateData.anomalyType === "Other" ? updateData.anomalyComments : "",
       actualProductionUnits: Number(updateData.actualProducedUnits),
       status: updateData.status,
     };
@@ -96,7 +97,7 @@ console.log(response.data)
         `http://localhost:8080/api/productionData/${selectedBatch.batchId}`,
         payload
       );
-console.log(payload)
+      console.log(payload);
       // Update the local state
       setBatches((prevBatches) =>
         prevBatches.map((batch) =>
@@ -107,10 +108,8 @@ console.log(payload)
       );
 
       setSelectedBatch(null); // Reset selection
-      toast.success("Data Edited Succesfully")
-      fetchBatches()
-     
-
+      toast.success("Data Edited Succesfully");
+      fetchBatches();
     } catch (error) {
       toast.error(error);
       // Optionally, handle error by showing a message to the user
@@ -118,13 +117,13 @@ console.log(payload)
   };
 
   // Filter batches based on selectedPlanId
-  const filteredBatches = selectedPlanId !== null
-  ? batches.filter((batch) => batch.planId === selectedPlanId)
-  : batches;
+  const filteredBatches =
+    selectedPlanId !== null
+      ? batches.filter((batch) => batch.planId === selectedPlanId)
+      : batches;
 
   return (
     <div className="flex h-screen w-screen">
-      
       {/* Sidebar */}
       <aside className="w-64  text-black p-4 overflow-y-auto">
         <h2 className="text-2xl font-bold mb-4">Production IDs</h2>
@@ -133,27 +132,26 @@ console.log(payload)
             <li key={planId} className="mb-2">
               <button
                 onClick={() =>
-                  setSelectedPlanId(
-                    selectedPlanId === planId ? null : planId
-                  )
+                  setSelectedPlanId(selectedPlanId === planId ? null : planId)
                 }
                 className={`w-full text-left px-3 py-2 rounded ${
                   selectedPlanId === planId
-                ? "bg-blue-500 text-white"
+                    ? "bg-blue-500 text-white"
                     : "text-gray-700 hover:bg-blue-100"
                 }`}
               >
-                <span className='font-medium'>Plan ID :   {planId} </span>               </button>
+                <span className="font-medium">Plan ID : {planId} </span>{" "}
+              </button>
             </li>
           ))}
         </ul>
       </aside>
 
       {/* Main Content */}
-      
+
       <div className="flex-1 bg-gray-100 p-6 overflow-y-auto w-3/4">
         <div className="bg-white p-6 rounded-lg shadow-md">
-        <Header/>
+          <Header />
           <h2 className="text-2xl font-bold mb-4 text-gray-800">
             Operator Dashboard
           </h2>
@@ -178,12 +176,8 @@ console.log(payload)
                   <tr key={batch.batchId} className="hover:bg-gray-100">
                     <td className="py-2 px-4 border">{batch.batchId}</td>
                     <td className="py-2 px-4 border">{batch.planId}</td>
-                    <td className="py-2 px-4 border">
-                      {batch.vehicleModel}
-                    </td>
-                    <td className="py-2 px-4 border">
-                      {batch.productionLine}
-                    </td>
+                    <td className="py-2 px-4 border">{batch.vehicleModel}</td>
+                    <td className="py-2 px-4 border">{batch.productionLine}</td>
                     <td className="py-2 px-4 border">{batch.shift}</td>
                     <td className="py-2 px-4 border">
                       {batch.plannedProductionUnits}
@@ -311,9 +305,7 @@ console.log(payload)
                   </div>
 
                   <div>
-                    <label className="block text-gray-700">
-                      Anomaly Type:
-                    </label>
+                    <label className="block text-gray-700">Anomaly Type:</label>
                     <select
                       name="anomalyType"
                       value={updateData.anomalyType}
@@ -327,15 +319,13 @@ console.log(payload)
                         Mechanical Failure
                       </option>
                       <option value="Electrical Issue">Electrical Issue</option>
-                      <option value="Quality Control">
-                        Quality Control
-                      </option>
+                      <option value="Quality Control">Quality Control</option>
                       <option value="Supply Shortage">Supply Shortage</option>
                       <option value="Other">Other</option>
                     </select>
                   </div>
 
-                  {updateData.anomalyType === 'Other' && (
+                  {updateData.anomalyType === "Other" && (
                     <div className="md:col-span-2">
                       <label className="block text-gray-700">
                         Anomaly Comments:
@@ -346,7 +336,7 @@ console.log(payload)
                         onChange={handleChange}
                         className="mt-1 p-2 w-full border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter additional comments..."
-                        required={updateData.anomalyType === 'Other'}
+                        required={updateData.anomalyType === "Other"}
                       />
                     </div>
                   )}

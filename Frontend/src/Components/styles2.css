@@ -86,7 +86,7 @@ form span {
   width: 100%;
 }
 
-input{
+input {
   width: 100%;
   padding: 0.75rem 1rem;
   border: none;
@@ -176,13 +176,14 @@ input{
 }
 
 .overlay__panel button {
-  
   border: none;
   outline: none;
   font-size: 1rem;
   color: var(--white);
   border-radius: 2rem;
-  background-color: var(--primary-color); /* Added background color to make it visible */
+  background-color: var(
+    --primary-color
+  ); /* Added background color to make it visible */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -198,13 +199,14 @@ input{
   width: 10rem;
   height: 3rem;
   border: 1px solid var(--white);
-  background-color: var(--primary-color); /* Ensure it has the same background color */
+  background-color: var(
+    --primary-color
+  ); /* Ensure it has the same background color */
   border-radius: 2rem;
   display: flex;
   align-items: center;
   justify-content: center; /* Centers the button text */
 }
-
 
 .right__panel__active .overlay__container {
   transform: translateX(-150%);

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { toast, ToastContainer, Bounce } from 'react-toastify'; // Importing toast
-import 'react-toastify/dist/ReactToastify.css'; // Importing toast CSS
-import { FaTrash,FaPlus } from 'react-icons/fa';
-import axios from "../utils/axoisConfig"
+import React, { useState, useEffect } from "react";
+import { toast, ToastContainer, Bounce } from "react-toastify"; // Importing toast
+import "react-toastify/dist/ReactToastify.css"; // Importing toast CSS
+import { FaTrash, FaPlus } from "react-icons/fa";
+import axios from "../utils/axoisConfig";
 const VEHICLE_ID_MAPPING = {
   "Apache RTR 160": "V101",
   "TVS Ntorq": "V102",
@@ -19,10 +19,10 @@ const VehicleTable = () => {
 
   const fetchVehicles = async () => {
     try {
-      const response = await axios('http://localhost:8080/api/inventory/qc');
+      const response = await axios("http://localhost:8080/api/inventory/qc");
 
       const data = response.data;
-      console.log(data)
+      console.log(data);
       setVehicles(data);
     } catch (error) {
       toast.error(`Error: ${error.message}`, {
@@ -44,18 +44,18 @@ const VehicleTable = () => {
 
     const vehicleData = {
       batchId: vehicle.batchId,
-      vehicleModel:vehicle.vehicleModel,
+      vehicleModel: vehicle.vehicleModel,
       vehicleId,
-      stock: vehicle.qcPassedUnits
-
+      stock: vehicle.qcPassedUnits,
     };
 
     try {
-      const response = await axios.post('http://localhost:8080/api/inventory/inv', 
-     vehicleData);
+      const response = await axios.post(
+        "http://localhost:8080/api/inventory/inv",
+        vehicleData
+      );
 
-      
-      toast.success('Vehicle added successfully!', {
+      toast.success("Vehicle added successfully!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -85,11 +85,14 @@ const VehicleTable = () => {
 
   const removeVehicle = async (id) => {
     try {
-      const response = await axios(`http://localhost:8080/api/inventory/batch/${id}`, {
-        method: 'DELETE',
-      });
+      const response = await axios(
+        `http://localhost:8080/api/inventory/batch/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
-      if (!response.ok) throw new Error('Failed to remove vehicle');
+      if (!response.ok) throw new Error("Failed to remove vehicle");
 
       fetchVehicles(); // Refresh the vehicle list after deletion
     } catch (error) {
@@ -119,18 +122,23 @@ const VehicleTable = () => {
             <th className="py-2 border-b text-center">Actions</th>
           </tr>
         </thead>
-        <tbody className=' text-center'>
+        <tbody className=" text-center">
           {vehicles.map((vehicle, index) => (
-            <tr key={vehicle.vehicleId} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
+            <tr
+              key={vehicle.vehicleId}
+              className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
+            >
               <td className="py-2 border-b px-4">{vehicle.batchId}</td>
-              <td className="py-2 border-b px-4">{vehicle.vehicleModel == null ? 0 : vehicle.vehicleModel}</td>
+              <td className="py-2 border-b px-4">
+                {vehicle.vehicleModel == null ? 0 : vehicle.vehicleModel}
+              </td>
               <td className="py-2 border-b px-4">{vehicle.qcPassedUnits}</td>
               <td className="py-2 border-b px-4 flex justify-center space-x-4 items-center">
                 <button
                   onClick={() => appendVehicle(vehicle)}
                   className=" h-10 flex items-center p-3  bg-green-500 text-white  hover:bg-green-600 transition duration-200  rounded-md"
                 >
-                  <FaPlus className='mr-2'/> Add 
+                  <FaPlus className="mr-2" /> Add
                 </button>
 
                 {/* <button

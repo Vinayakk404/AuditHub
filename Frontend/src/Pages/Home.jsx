@@ -10,7 +10,7 @@ import Navbar from "../Components/Navbar.jsx";
 import Features from "../Components/Features.jsx";
 import { motion } from "framer-motion";
 import { FaArrowDown } from "react-icons/fa";
-import axios from 'axios'
+import axios from "axios";
 
 // const refreshMetabaseDashboard = async () => {
 //   try {
@@ -92,9 +92,9 @@ export const cardData = [
             machinery issues to supervisors.
           </li>
           <li className="text-bold mb-10">
-            Plant Manager is responsible to monitor the batch production, report in
-            case of any failure, anomalies and approve to send the manufactured
-            batch to quality control.
+            Plant Manager is responsible to monitor the batch production, report
+            in case of any failure, anomalies and approve to send the
+            manufactured batch to quality control.
           </li>
         </ul>
       ),
@@ -267,8 +267,6 @@ function App() {
               Your One Stop Solution To Auditing
             </motion.p>
 
-
-
             {/* Optional Call-to-Action Button */}
             <motion.a
               onClick={() => {
@@ -303,7 +301,9 @@ function App() {
                   behavior: "smooth",
                 });
               }}
-            ><FaArrowDown size={40} color="white"/></motion.div>
+            >
+              <FaArrowDown size={40} color="white" />
+            </motion.div>
           </div>
           <div className="flex flex-col items-center " id="services">
             <section className="mt-72 mb-20 flex justify-center items-center font-bold text-6xl text-white">

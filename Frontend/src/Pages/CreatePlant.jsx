@@ -1,25 +1,25 @@
 // src/pages/CreatePlant.js
-import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import ShiftCard from '../components/ShiftCard';
-import FeedbackModal from '../components/FeedbackModal';
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import ShiftCard from "../Components/ShiftCard";
+import FeedbackModal from "../Components/FeedbackModal";
 
 const CreatePlant = () => {
-  const [plantName, setPlantName] = useState('');
+  const [plantName, setPlantName] = useState("");
   const [shifts, setShifts] = useState([
-    { shiftName: 'Shift A', units: 1333 },
-    { shiftName: 'Shift B', units: 1333 },
-    { shiftName: 'Shift C', units: 1334 }, // Adjusted to total 4000
+    { shiftName: "Shift A", units: 1333 },
+    { shiftName: "Shift B", units: 1333 },
+    { shiftName: "Shift C", units: 1334 }, // Adjusted to total 4000
   ]);
   const [vehicles, setVehicles] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [feedbackMessage, setFeedbackMessage] = useState("");
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!plantName.trim()) {
-      setFeedbackMessage('Plant name cannot be empty.');
+      setFeedbackMessage("Plant name cannot be empty.");
       setShowModal(true);
       return;
     }
@@ -32,16 +32,16 @@ const CreatePlant = () => {
     };
 
     // In a real application, send `newPlant` to the backend or global state
-    console.log('New Plan Created:', newPlant);
+    console.log("New Plan Created:", newPlant);
 
-    setFeedbackMessage('Plan created successfully!');
+    setFeedbackMessage("Plan created successfully!");
     setShowModal(true);
     // Reset form
-    setPlantName('');
+    setPlantName("");
     setShifts([
-      { shiftName: 'Shift A', units: 1333 },
-      { shiftName: 'Shift B', units: 1333 },
-      { shiftName: 'Shift C', units: 1334 },
+      { shiftName: "Shift A", units: 1333 },
+      { shiftName: "Shift B", units: 1333 },
+      { shiftName: "Shift C", units: 1334 },
     ]);
     setVehicles([]);
   };
@@ -52,7 +52,9 @@ const CreatePlant = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Plant Name Input */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">Plant Name</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Plant Name
+          </label>
           <input
             type="text"
             value={plantName}
@@ -65,7 +67,9 @@ const CreatePlant = () => {
 
         {/* Shifts Allocation */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">Shifts</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Shifts
+          </label>
           <div className="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
             {shifts.map((shift, index) => (
               <ShiftCard
@@ -80,17 +84,24 @@ const CreatePlant = () => {
               />
             ))}
           </div>
-          <p className="mt-2 text-sm text-gray-500">Total Units: {shifts.reduce((acc, curr) => acc + Number(curr.units), 0)}</p>
+          <p className="mt-2 text-sm text-gray-500">
+            Total Units:{" "}
+            {shifts.reduce((acc, curr) => acc + Number(curr.units), 0)}
+          </p>
         </div>
 
         {/* Vehicle Selection */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">Select Vehicles</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Select Vehicles
+          </label>
           <select
             multiple
             value={vehicles}
             onChange={(e) =>
-              setVehicles(Array.from(e.target.selectedOptions, (option) => option.value))
+              setVehicles(
+                Array.from(e.target.selectedOptions, (option) => option.value)
+              )
             }
             className="mt-1 p-2 border border-gray-300 rounded w-full"
             required
@@ -103,7 +114,10 @@ const CreatePlant = () => {
             <option value="Pulsar">Pulsar</option>
             <option value="HT Roadster">HT Roadster</option>
           </select>
-          <p className="mt-2 text-sm text-gray-500">Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.</p>
+          <p className="mt-2 text-sm text-gray-500">
+            Hold down the Ctrl (windows) or Command (Mac) button to select
+            multiple options.
+          </p>
         </div>
 
         {/* Submit Button */}

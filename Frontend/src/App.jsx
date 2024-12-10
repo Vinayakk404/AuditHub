@@ -1,5 +1,5 @@
 // src/App.jsx
-import "./index.css"
+import "./index.css";
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Home from "./Pages/Home";
@@ -27,17 +27,14 @@ const App = () => {
         {/* Route for HomePage */}
         <Route path="/" element={<Home />} />
         <Route element={<ProtectedRoute />}>
-        <Route path="/Production" element={<ProductionPlan />} />
-        <Route path="/plant/:plantId" element={<PlantManagerPage />} />
-        <Route path="/Quality" element={<QualityControlPage />} />
-        <Route path="/Inventory" element={<Inventory />} />
-        <Route path="/Sales" element={<SalesPage2 />} />
+          <Route path="/Production" element={<ProductionPlan />} />
+          <Route path="/plant/:plantId" element={<PlantManagerPage />} />
+          <Route path="/Quality" element={<QualityControlPage />} />
+          <Route path="/Inventory" element={<Inventory />} />
+          <Route path="/Sales" element={<SalesPage2 />} />
         </Route>
         {/* Fallback Route */}
-        <Route
-          path="/unauthorized"
-          element={<h1>UnAuthorized</h1>}
-        />
+        <Route path="/unauthorized" element={<h1>UnAuthorized</h1>} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </div>

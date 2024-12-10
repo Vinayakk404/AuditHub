@@ -1,7 +1,7 @@
 // src/components/QualityControlPage.jsx
 import React, { useState, useEffect } from "react";
 import { VEHICLE_MODELS } from "../constants/vehicleModels";
-import Header from '../Components/Header'
+import Header from "../Components/Header";
 import {
   FaEye,
   FaPlus,
@@ -16,14 +16,13 @@ import axios from "../utils/axoisConfig";
 import Logout from "../Components/Logout";
 import { jwtDecode } from "jwt-decode";
 
-
 const QualityControlPage = () => {
   const ANOMALY_REASONS = [
     "Non-Functional Components",
     "Safety Standard Non-Compliance",
     "Quality Defect",
     "Incorrect Assembly",
-    "Other"
+    "Other",
   ];
   const [loss, setLoss] = useState(0);
   const [amountLoss, setTotalLoss] = useState(0);
@@ -76,9 +75,9 @@ const QualityControlPage = () => {
     "TVS Ntorq": 50000,
     "TVS Jupiter": 55000,
     "Star City": 45000,
-    "TVS XL100":40000,
+    "TVS XL100": 40000,
     "TVS iQube Electric": 100000,
-    "TVS Raider":85000
+    "TVS Raider": 85000,
   };
 
   // Helper function to get today's date in YYYY-MM-DD format
@@ -101,21 +100,21 @@ const QualityControlPage = () => {
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   };
 
-    // Effect to update quality start time automatically when production end time changes
-    useEffect(() => {
-      if (formData.productionEndTime) {
-        const prodEnd = new Date(formData.productionEndTime);
-        const qcStart = new Date(prodEnd);
-        qcStart.setDate(qcStart.getDate() + 1);
-        qcStart.setHours(qcStart.getHours()+5);
-        qcStart.setMinutes(qcStart.getMinutes()+30);
-        setFormData((prevState) => ({
-          ...prevState,
-          qualityStartTime: qcStart.toISOString().slice(0, 16), // Format as 'YYYY-MM-DDTHH:MM' for datetime-local
-        }));
-      }
-    }, [formData.productionEndTime]);
-  
+  // Effect to update quality start time automatically when production end time changes
+  useEffect(() => {
+    if (formData.productionEndTime) {
+      const prodEnd = new Date(formData.productionEndTime);
+      const qcStart = new Date(prodEnd);
+      qcStart.setDate(qcStart.getDate() + 1);
+      qcStart.setHours(qcStart.getHours() + 5);
+      qcStart.setMinutes(qcStart.getMinutes() + 30);
+      setFormData((prevState) => ({
+        ...prevState,
+        qualityStartTime: qcStart.toISOString().slice(0, 16), // Format as 'YYYY-MM-DDTHH:MM' for datetime-local
+      }));
+    }
+  }, [formData.productionEndTime]);
+
   // Automatically set qualityStartTime and qualityEndTime based on shift
   useEffect(() => {
     const todayDate = getTodayDate();
@@ -184,7 +183,7 @@ const QualityControlPage = () => {
     }
     // Handle QC Passed Units
     else if (name === "qcPassedUnits") {
-      setErrorMessage("")
+      setErrorMessage("");
       const producedUnits = parseInt(formData.producedUnits, 10);
       const passedUnits = parseInt(value, 10);
       if (producedUnits < passedUnits) {
@@ -195,7 +194,7 @@ const QualityControlPage = () => {
           qcPassedUnits: 0,
           qcFailedUnits: 0,
         }));
-       
+
         return;
       }
       setFormData((prevData) => ({
@@ -241,17 +240,19 @@ const QualityControlPage = () => {
         const end = new Date(endTime);
 
         if (start > end) {
-          setErrorMessage("Quality start time must be before quality end time.");
+          setErrorMessage(
+            "Quality start time must be before quality end time."
+          );
           setFormData((prevData) => ({
             ...prevData,
             [name]: value,
-          
-           qcEndTime:""
+
+            qcEndTime: "",
           }));
-        
+
           return;
         }
-        setErrorMessage("")
+        setErrorMessage("");
       }
 
       // Ensure quality times are not before productionEndTime
@@ -349,7 +350,6 @@ const QualityControlPage = () => {
     try {
       // POST request to submit QC data
       console.log(formData);
-    
 
       const response = await axios.post(
         "http://ec2-54-171-48-97.eu-west-1.compute.amazonaws.com:8080/api/qc",
@@ -401,16 +401,14 @@ const QualityControlPage = () => {
 
   // Handle updating a vehicle's QC data
   const handleUpdate = (vehicle) => {
-
     const productionEndTime = vehicle.productionEndTime
-    ? new Date(vehicle.productionEndTime)
-    : "";
+      ? new Date(vehicle.productionEndTime)
+      : "";
 
-  // Calculate Quality Start Time: one day + 5 hours and 30 minutes after production end time
-  const qualityStartTime2 = productionEndTime
-    ? new Date(productionEndTime.setDate(productionEndTime.getDate() + 1))
-    : "";
-
+    // Calculate Quality Start Time: one day + 5 hours and 30 minutes after production end time
+    const qualityStartTime2 = productionEndTime
+      ? new Date(productionEndTime.setDate(productionEndTime.getDate() + 1))
+      : "";
 
     setFormData({
       planId: vehicle.planId,
@@ -422,13 +420,13 @@ const QualityControlPage = () => {
       anomalyFlag: vehicle.anomalyFlag,
       anomalyType: vehicle.anomalyType,
       shift: vehicle.shift,
-      qualityStartTime:qualityStartTime2.toISOString().slice(0, 16),
-    qualityEndTime: vehicle.qualityEndTime
-      ? new Date(vehicle.qualityEndTime).toISOString().slice(0, 16)
-      : "",
-    productionEndTime: vehicle.productionEndTime
-      ? new Date(vehicle.productionEndTime).toISOString().slice(0, 16)
-      : getCurrentDateTimeLocal(),
+      qualityStartTime: qualityStartTime2.toISOString().slice(0, 16),
+      qualityEndTime: vehicle.qualityEndTime
+        ? new Date(vehicle.qualityEndTime).toISOString().slice(0, 16)
+        : "",
+      productionEndTime: vehicle.productionEndTime
+        ? new Date(vehicle.productionEndTime).toISOString().slice(0, 16)
+        : getCurrentDateTimeLocal(),
       amountLoss: vehicle.amountLoss,
     });
     setIsUpdateMode(true);
@@ -445,7 +443,7 @@ const QualityControlPage = () => {
       vehicleModel,
       qualityStartTime,
       qualityEndTime,
-      productionEndTime
+      productionEndTime,
     } = formData;
 
     // Ensure numeric values
@@ -492,7 +490,7 @@ const QualityControlPage = () => {
 
       setFormData((prev) => ({
         ...prev,
-        delay: Math.floor(del/ (1000 * 60))-1440
+        delay: Math.floor(del / (1000 * 60)) - 1440,
       }));
     } else {
       // Reset values if input data is not consistent
@@ -518,9 +516,7 @@ const QualityControlPage = () => {
     <div className="flex h-screen w-screen">
       {/* Sidebar */}
       <aside className="w-64 bg-white shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">
-          TVS Motors
-        </h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">TVS Motors</h2>
         <nav className="flex flex-col space-y-4">
           <button
             onClick={() => setCurrentView("view")}
@@ -564,7 +560,6 @@ const QualityControlPage = () => {
             Add Quality Data
           </button>
 
-       
           <button
             onClick={() => setCurrentView("Graphs")}
             className={`flex items-center p-3 rounded-md transition-colors ${
@@ -583,7 +578,10 @@ const QualityControlPage = () => {
       {/* Main Content */}
       <div className="flex-1 p-10 bg-gray-100 overflow-auto w-full">
         {/* Conditional Rendering Based on Current View */}
- <Header title="Welcome Quality Controller" subText="Lets Select Best Of The Best" />
+        <Header
+          title="Welcome Quality Controller"
+          subText="Lets Select Best Of The Best"
+        />
         {currentView === "view" && (
           <>
             <h1 className="text-3xl font-bold mb-8 text-gray-800">
@@ -670,17 +668,13 @@ const QualityControlPage = () => {
               </table>
             </div>
           </>
-        ) 
-        
-      }
-      { currentView=="add" &&
-(
+        )}
+        {currentView == "add" && (
           <>
             <div className=" justify-between  mb-8 flex-1 p-6  overflow-auto">
               <h1 className="text-3xl font-bold text-gray-800">
                 {isUpdateMode ? "Update QC Data" : "Add Quality  Data"}
               </h1>
-             
             </div>
 
             {/* Success Message */}
@@ -750,10 +744,9 @@ const QualityControlPage = () => {
                   value={formData.qcPassedUnits}
                   onChange={handleChange}
                   required
-                >             
-                                <span style={{ color: 'red' }}>*</span>
-
-</InputField>
+                >
+                  <span style={{ color: "red" }}>*</span>
+                </InputField>
 
                 {/* QC Failed Units */}
                 <InputField
@@ -799,9 +792,7 @@ const QualityControlPage = () => {
                     className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     required
                     readOnly
-                  >
-             
-                  </input>
+                  ></input>
                 </div>
 
                 {/* Quality Start Time */}
@@ -820,7 +811,7 @@ const QualityControlPage = () => {
                     onChange={handleChange}
                     className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     required
-             readOnly
+                    readOnly
                   />
                 </div>
 
@@ -830,7 +821,7 @@ const QualityControlPage = () => {
                     htmlFor="qualityEndTime"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Quality End Time  <span style={{ color: 'red' }}>*</span>
+                    Quality End Time <span style={{ color: "red" }}>*</span>
                   </label>
                   <input
                     type="datetime-local"
@@ -932,68 +923,61 @@ const QualityControlPage = () => {
                   </div>
                 }
               </div>
-              { amountLoss>0 && (
-              <div className="mt-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-                <label
-                  className={`font-semibold ${
-                    amountLoss > 0 ? "text-red-600" : "text-green-600"
-                  }`}
-                  value={formData.amountLoss}
-                  onChange={handleChange}
-                >
-                  Total Loss: ₹{amountLoss.toFixed(2)}
-                </label>
-        
-              </div>
-              )
-}
-              {formData.delay>0 && (
+              {amountLoss > 0 && (
                 <div className="mt-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-                  <label  className={`font-semibold ${
-                   "text-red-600" 
-                  }`}>
+                  <label
+                    className={`font-semibold ${
+                      amountLoss > 0 ? "text-red-600" : "text-green-600"
+                    }`}
+                    value={formData.amountLoss}
+                    onChange={handleChange}
+                  >
+                    Total Loss: ₹{amountLoss.toFixed(2)}
+                  </label>
+                </div>
+              )}
+              {formData.delay > 0 && (
+                <div className="mt-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                  <label className={`font-semibold ${"text-red-600"}`}>
                     Time Delay : {formData.delay} minutes
                   </label>
                 </div>
               )}
               {/* Submit Button */}
-              { errorMessage=="" ? (
-              <button
-                type="submit"
-                className="mt-6 flex items-center justify-center w-full bg-green-400 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-              >
-                <FaSave className="mr-2" />
+              {errorMessage == "" ? (
+                <button
+                  type="submit"
+                  className="mt-6 flex items-center justify-center w-full bg-green-400 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                >
+                  <FaSave className="mr-2" />
                   Update QC Data"
-              </button>
-              ):(<>
-              <button
-               disabled
-                className=" disabled mt-6 flex items-center justify-center w-full bg-red-400 text-white py-2 px-4 rounded-md  focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-              >
-                
-                  Invalid input : {errorMessage}
-              </button>
-              
-              </>)
-}
+                </button>
+              ) : (
+                <>
+                  <button
+                    disabled
+                    className=" disabled mt-6 flex items-center justify-center w-full bg-red-400 text-white py-2 px-4 rounded-md  focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                  >
+                    Invalid input : {errorMessage}
+                  </button>
+                </>
+              )}
             </form>
           </>
         )}
 
-        { currentView=="Graphs" && (
+        {currentView == "Graphs" && (
           <>
-          <iframe
-    src="http://localhost:3000/public/dashboard/ff28e3ac-4836-47fc-ae19-55c0dec9b7c9#refresh=5"
-    frameborder="0"
-    width="1100"
-    height="1600"
-    allowFullScreen
-    allowtransparency
-></iframe>
+            <iframe
+              src="http://localhost:3000/public/dashboard/ff28e3ac-4836-47fc-ae19-55c0dec9b7c9#refresh=5"
+              frameborder="0"
+              width="1100"
+              height="1600"
+              allowFullScreen
+              allowtransparency
+            ></iframe>
           </>
-        )
-
-        }
+        )}
       </div>
 
       {/* {currentView=="Graphs" && (
@@ -1019,13 +1003,11 @@ const InputField = ({
   value,
   onChange,
   disabled = false,
-
 }) => (
   <div>
     <label htmlFor={name} className="block text-sm font-medium text-gray-700">
-      {label}  <span style={{ color: 'red' }}>*</span>
+      {label} <span style={{ color: "red" }}>*</span>
     </label>
-   
 
     <input
       type={type}
